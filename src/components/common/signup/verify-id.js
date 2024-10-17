@@ -46,7 +46,7 @@ export default function VerifyId() {
                 <div
                     className="logo login-logo mx-auto"
                     style={{
-                        backgroundImage: 'url("{{ getStaticLogo .Branding.Organization }}")'
+                        backgroundImage: `url(https://cdn.assets.pluto-service.com/patient-web-clients/pluto/nav.png)`
                     }}
                 />
                 <div className="w-100 w-md-75 mx-auto px-4 px-md-2">
