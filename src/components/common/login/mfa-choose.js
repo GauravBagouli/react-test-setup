@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
 
 const MFAChoose = ({ branding, csrfToken, mfaToken, mfaAuthenticators }) => {
+  const router = useRouter();
   const [mfaAuthenticatorList, setMfaAuthenticatorList] = useState(
     mfaAuthenticators || [{ ID: 1, Name: 'test+01@pluto.health' }],
   );
@@ -10,6 +12,10 @@ const MFAChoose = ({ branding, csrfToken, mfaToken, mfaAuthenticators }) => {
       mfaAuthenticators || [{ ID: 1, Name: 'test+01@pluto.health' }],
     );
   }, [mfaAuthenticators]);
+
+  const handleSend = () => {
+    router.push('/login/mfa/confirm');
+  };
 
   return (
     <div className="row justify-content-center" style={{ minHeight: '102vh' }}>
@@ -60,8 +66,7 @@ const MFAChoose = ({ branding, csrfToken, mfaToken, mfaAuthenticators }) => {
           <div id="mfa-choice-container">
             <form
               id="mfa-choose-form"
-              method="POST"
-              action="/login/mfa/choose"
+              action="#"
               style={{ width: '20rem', margin: '0 auto' }}
               className="needs-validation w-auto"
               noValidate
@@ -93,8 +98,9 @@ const MFAChoose = ({ branding, csrfToken, mfaToken, mfaAuthenticators }) => {
               />
               <input type="hidden" name="_csrf" id="_csrf" value={csrfToken} />
               <button
-                type="submit"
+                type="button"
                 className="btn btn-primary rounded-pill my-3 w-100"
+                onClick={handleSend}
               >
                 Send
               </button>

@@ -1,6 +1,12 @@
+import { useRouter } from 'next/router';
 import React from 'react';
 
 const Login = ({ branding, csrfToken }) => {
+  const router = useRouter();
+  const handleLogin = (e) => {
+    e.preventDefault();
+    router.push('/login/mfa/choose');
+  };
   return (
     <div className="row justify-content-center" style={{ minHeight: '102vh' }}>
       <div className="col-4 d-md-flex d-none bg-blue align-items-center justify-content-center min-vh-100">
@@ -50,7 +56,7 @@ const Login = ({ branding, csrfToken }) => {
             <h5 className="text-center fw-semibold my-2 mb-5 mb-md-4">
               Take control of your health
             </h5>
-            <form id="login-form" method="POST" action="/login">
+            <form id="login-form" method="POST" action="#">
               <input type="hidden" name="_csrf" id="_csrf" value={csrfToken} />
               <label htmlFor="username" className="form-label text-start my-0">
                 Email address
@@ -83,8 +89,9 @@ const Login = ({ branding, csrfToken }) => {
                 </a>
               </div>
               <button
-                type="submit"
+                type="button"
                 className="btn btn-primary rounded-pill my-3 w-100"
+                onClick={(e) => handleLogin(e)}
               >
                 Login
               </button>
