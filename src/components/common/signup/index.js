@@ -1,6 +1,9 @@
+import { useRouter } from 'next/router'
 import React from 'react'
 
 export default function Signup() {
+
+  const router = useRouter()
   return (
     <>
       <div className="row justify-content-center min-vh-100" style={{ minHeight: "100vh" }}>
@@ -43,7 +46,7 @@ export default function Signup() {
             <div
               className="logo login-logo mx-auto mt-8"
               style={{
-                backgroundImage: 'url("{{ getStaticLogo .Branding.Organization }}")'
+                backgroundImage: `url(https://cdn.assets.pluto-service.com/patient-web-clients/pluto/nav.png)`
               }}
             />
             <div id="login-form-container">
@@ -149,7 +152,8 @@ export default function Signup() {
                   </label>
                 </div>
                 <button
-                  type="submit"
+                  onClick={()=> {router.push("/signup/mfa/confirm")}}
+                  // type="submit"
                   className="btn btn-primary rounded-pill my-3 w-100"
                 >
                   Continue
