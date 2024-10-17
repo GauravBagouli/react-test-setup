@@ -1,3 +1,4 @@
+import { encodeData } from '@/helpers/auth';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -155,7 +156,10 @@ export default function Signup() {
                 </div>
                 <button
                   onClick={() => {
-                    router.push('/signup/mfa/confirm');
+                    router.push({
+                      pathname: '/login/mfa/confirm',
+                      query: { page: encodeData('signup') },
+                    });
                   }}
                   type="button"
                   className="btn btn-primary rounded-pill my-3 w-100"
