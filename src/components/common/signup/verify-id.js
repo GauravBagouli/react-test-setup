@@ -1,6 +1,14 @@
+import { useRouter } from 'next/router';
 import React from 'react'
 
 export default function VerifyId() {
+    
+    const router = useRouter()
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        
+        router.push("/signup/verify-id/confirm")
+      };
     return (
         <div className="row justify-content-center" style={{ minHeight: "100vh" }}>
             <div className="col-4 bg-blue d-none d-md-flex align-items-center justify-content-center min-vh-100">
@@ -81,7 +89,7 @@ export default function VerifyId() {
                     <p>
                         A text message with a link will be sent to you at the number provided.
                     </p>
-                    <form id="send-idv-invite-form">
+                    <form id="send-idv-invite-form" onSubmit={handleSubmit}>
                         <div className="mb-3">
                             <label htmlFor="phone" className="form-label">
                                 Mobile Number

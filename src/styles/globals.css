@@ -118,3 +118,8 @@ body {
   border-radius: 0.4rem;
   border: 1px solid #e6e9e6;
 }
+
+
+#signature-pad ul{ 
+  list-style-type: circle !important;
+}

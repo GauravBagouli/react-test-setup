@@ -22,7 +22,7 @@ const MyDocument = () => (
         crossOrigin='anonymous'
         async
       ></script> 
-     
+     <link href="https://cdn.assets.pluto-service.com/lib/quill/quill.snow.css" rel="stylesheet"/>
      <link
         href="/plutostrap/dist/css/bootstrap.min.css"
         rel='stylesheet'
