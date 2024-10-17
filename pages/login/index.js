@@ -5,6 +5,6 @@ const LoginComponent = dynamic(
   { ssr: false },
 );
 
-export default function Signup() {
+export default function Login() {
   return <LoginComponent />;
 }

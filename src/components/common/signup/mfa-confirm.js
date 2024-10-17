@@ -1,13 +1,15 @@
-import { useState } from 'react';
 import { useRouter } from 'next/router';
+import { useState } from 'react';
 
 const MFAConfirm = ({ csrfToken, mfaToken, oobCode, brandingLogo }) => {
-  const router = useRouter();
   const [code, setCode] = useState('');
+  const router = useRouter()
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    router.push('/home');
+    // Perform form submission (e.g., POST request)
+    router.push("/signup/verify-id")
+    console.log('MFA Code submitted:', code);
   };
 
   return (
@@ -16,30 +18,21 @@ const MFAConfirm = ({ csrfToken, mfaToken, oobCode, brandingLogo }) => {
       <div className="col-4 bg-blue d-none d-md-flex align-items-center justify-content-center min-vh-100">
         <ul className="text-white">
           <li className="list-group-item d-flex mb-4">
-            <i
-              className="d-block fa fa-circle-check pe-3 fs-4"
-              aria-hidden="true"
-            ></i>
+            <i className="d-block fa fa-circle-check pe-3 fs-4" aria-hidden="true"></i>
             <div>
               <p className="m-0">Unlock care recommendations</p>
               <small>Discover better health</small>
             </div>
           </li>
           <li className="list-group-item d-flex mb-4">
-            <i
-              className="d-block fa fa-circle-check pe-3 fs-4"
-              aria-hidden="true"
-            ></i>
+            <i className="d-block fa fa-circle-check pe-3 fs-4" aria-hidden="true"></i>
             <div>
               <p className="m-0">Understand your health</p>
               <small>Get personalized plans</small>
             </div>
           </li>
           <li className="list-group-item d-flex mb-4">
-            <i
-              className="d-block fa fa-circle-check pe-3 fs-4"
-              aria-hidden="true"
-            ></i>
+            <i className="d-block fa fa-circle-check pe-3 fs-4" aria-hidden="true"></i>
             <div>
               <p className="m-0">Access to care</p>
               <small>Access to free or low-cost treatment</small>
@@ -64,20 +57,12 @@ const MFAConfirm = ({ csrfToken, mfaToken, oobCode, brandingLogo }) => {
 
           {/* MFA Form */}
           <div id="mfa-form-container">
-            <h5 className="text-center fw-semibold mb-4 my-2">
-              Code Authentication
-            </h5>
+            <h5 className="text-center fw-semibold mb-4 my-2">Code Authentication</h5>
             <p className="text-center my-2">
-              Type the code that was sent to your MFA device registered with
-              Pluto Health
+              Type the code that was sent to your MFA device registered with Pluto Health
             </p>
 
-            <form
-              id="mfa-form"
-              method="POST"
-              action="#"
-              style={{ width: '20rem', margin: '0 auto' }}
-            >
+            <form id="mfa-form" method="POST" action="/login/mfa/confirm" onSubmit={handleSubmit} style={{ width: '20rem', margin: '0 auto' }}>
               <div className="form-group">
                 <input
                   style={{ width: '6rem', margin: '0 auto' }}
@@ -90,41 +75,19 @@ const MFAConfirm = ({ csrfToken, mfaToken, oobCode, brandingLogo }) => {
                   onChange={(e) => setCode(e.target.value)}
                   required
                 />
-                <input
-                  type="hidden"
-                  name="_csrf"
-                  id="_csrf"
-                  value={csrfToken}
-                />
-                <input
-                  type="hidden"
-                  name="mfa_token"
-                  id="mfa_token"
-                  value={mfaToken}
-                />
-                <input
-                  type="hidden"
-                  name="oob_code"
-                  id="oob_code"
-                  value={oobCode}
-                />
+                <input type="hidden" name="_csrf" id="_csrf" value={csrfToken} />
+                <input type="hidden" name="mfa_token" id="mfa_token" value={mfaToken} />
+                <input type="hidden" name="oob_code" id="oob_code" value={oobCode} />
               </div>
 
-              <button
-                type="button"
-                className="btn btn-primary rounded-pill my-3 w-100"
-                onClick={handleSubmit}
-              >
+              <button type="submit"  className="btn btn-primary rounded-pill my-3 w-100">
                 Continue
               </button>
             </form>
           </div>
 
           {/* Request Access */}
-          <a
-            href="/request-access"
-            className="d-block my-4 text-center link-primary link-underline-opacity-0"
-          >
+          <a href="/request-access" className="d-block my-4 text-center link-primary link-underline-opacity-0">
             Request access
           </a>
 
@@ -132,10 +95,10 @@ const MFAConfirm = ({ csrfToken, mfaToken, oobCode, brandingLogo }) => {
           <div className="text-center">
             <p>Safe. Secure. Trusted.</p>
             <div className="d-flex justify-content-center">
-              <img className="me-2" src="/img/hipaa.png" alt="HIPAA logo" />
-              <img className="me-2" src="/img/soc2.png" alt="SOC2 logo" />
-              <img className="me-2" src="/img/iso.png" alt="ISO logo" />
-            </div>
+                <img className="me-2" src="/img/hipaa.png" alt="hipaa logo" />
+                <img className="me-2" src="/img/soc2.png" alt="soc2 logo" />
+                <img className="me-2" src="/img/iso.png" alt="iso logo" />
+              </div>
           </div>
         </div>
       </div>

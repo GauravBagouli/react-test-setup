@@ -1,15 +1,25 @@
+import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import React from 'react';
 
-const Login = ({ branding, csrfToken }) => {
+const MFAChoose = ({ branding, csrfToken, mfaToken, mfaAuthenticators }) => {
   const router = useRouter();
-  const handleLogin = (e) => {
-    e.preventDefault();
-    router.push('/login/mfa/choose');
+  const [mfaAuthenticatorList, setMfaAuthenticatorList] = useState(
+    mfaAuthenticators || [{ ID: 1, Name: 'test+01@pluto.health' }],
+  );
+
+  useEffect(() => {
+    setMfaAuthenticatorList(
+      mfaAuthenticators || [{ ID: 1, Name: 'test+01@pluto.health' }],
+    );
+  }, [mfaAuthenticators]);
+
+  const handleSend = () => {
+    router.push('/login/mfa/confirm');
   };
+
   return (
     <div className="row justify-content-center" style={{ minHeight: '102vh' }}>
-      <div className="col-4 d-md-flex d-none bg-blue align-items-center justify-content-center min-vh-100">
+      <div className="col-4 bg-blue d-none d-md-flex align-items-center justify-content-center min-vh-100">
         <ul className="text-white">
           <li className="list-group-item d-flex mb-4">
             <i
@@ -43,8 +53,9 @@ const Login = ({ branding, csrfToken }) => {
           </li>
         </ul>
       </div>
+
       <div className="row align-items-center justify-content-center col-md-8 col-12 pe-md-4 pe-0">
-        <div className="px-4 py-3 w-100 w-md-75 w-xl-50 mx-auto">
+        <div className="px-4 py-3 w-75 mx-auto">
           <div
             className="logo login-logo mx-auto"
             style={{
@@ -52,48 +63,46 @@ const Login = ({ branding, csrfToken }) => {
             }}
           ></div>
 
-          <div id="login-form-container">
-            <h5 className="text-center fw-semibold my-2 mb-5 mb-md-4">
-              Take control of your health
-            </h5>
-            <form id="login-form" method="POST" action="#">
+          <div id="mfa-choice-container">
+            <form
+              id="mfa-choose-form"
+              action="#"
+              style={{ width: '20rem', margin: '0 auto' }}
+              className="needs-validation w-auto"
+              noValidate
+            >
+              {console.log('mfaAuthenticatorList', mfaAuthenticatorList)}
+              {mfaAuthenticatorList?.map((authenticator) => (
+                <div className="form-check" key={authenticator.ID}>
+                  <input
+                    className="form-check-input"
+                    type="radio"
+                    name="id"
+                    value={authenticator.ID}
+                    id={authenticator.ID}
+                  />
+                  <label
+                    className="form-check-label"
+                    htmlFor={authenticator.ID}
+                  >
+                    {authenticator.Name}
+                  </label>
+                </div>
+              ))}
+
+              <input
+                type="hidden"
+                name="mfa_token"
+                id="mfa_token"
+                value={mfaToken}
+              />
               <input type="hidden" name="_csrf" id="_csrf" value={csrfToken} />
-              <label htmlFor="username" className="form-label text-start my-0">
-                Email address
-              </label>
-              <input
-                id="username"
-                className="form-control mb-3"
-                name="username"
-                placeholder="Enter your email address"
-                type="email"
-                required
-              />
-              <label htmlFor="password" className="form-label text-start">
-                Password
-              </label>
-              <input
-                id="password"
-                className="form-control mb-3"
-                name="password"
-                placeholder="Enter your password"
-                type="password"
-                required
-              />
-              <div className="text-end mb-5">
-                <a
-                  href="/verify-email"
-                  className="link-blue link-underline-opacity-0"
-                >
-                  Forgot password?
-                </a>
-              </div>
               <button
                 type="button"
                 className="btn btn-primary rounded-pill my-3 w-100"
-                onClick={(e) => handleLogin(e)}
+                onClick={handleSend}
               >
-                Login
+                Send
               </button>
             </form>
           </div>
@@ -104,6 +113,7 @@ const Login = ({ branding, csrfToken }) => {
           >
             Request access
           </a>
+
           <div className="text-center">
             <p className="fs-6">Safe. Secure. Trusted.</p>
             <div className="d-flex justify-content-center">
@@ -118,4 +128,4 @@ const Login = ({ branding, csrfToken }) => {
   );
 };
 
-export default Login;
+export default MFAChoose;
