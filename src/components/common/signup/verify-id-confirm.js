@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 
 const VerifyIDConfirm = ({ userInfo }) => {
@@ -5,12 +6,13 @@ const VerifyIDConfirm = ({ userInfo }) => {
   const [lastName, setLastName] = useState(userInfo?.LastName || '');
   const [dob, setDob] = useState(userInfo?.DateOfBirth || '');
   const [gender, setGender] = useState('');
-
+  
+  const router = useRouter()
   const handleSubmit = (e) => {
-    e.preventDefault();
-    // Handle form submission, e.g., sending data to the server
-    console.log({ firstName, lastName, dob, gender });
-  };
+      e.preventDefault();
+      
+      router.push("/signup/hipaa")
+    };
 
   return (
     <div className="row justify-content-center" style={{ minHeight: '102vh' }}>
