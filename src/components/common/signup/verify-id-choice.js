@@ -1,6 +1,6 @@
 import React from 'react';
 
-const VerifyIDChoice = ({ brandingLogo }) => {
+const VerifyIDChoice = () => {
   const handleManualInfo = () => {
     // Redirect or handle manual info entry
     console.log("Manual info entry selected");

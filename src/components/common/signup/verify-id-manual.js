@@ -1,15 +1,27 @@
 import React, { useState } from 'react';
 
-const VerifyIDManual = ({ brandingLogo, userInfo }) => {
-  const [firstName, setFirstName] = useState(userInfo?.FirstName || '');
-  const [lastName, setLastName] = useState(userInfo?.LastName || '');
-  const [dob, setDob] = useState(userInfo?.DateOfBirth || '');
-  const [gender, setGender] = useState('');
+const VerifyIDManual = () => {
+  const [state, setState] = useState('');
+  const [licenseNumber, setLicenseNumber] = useState('');
+  const [expirationDate, setExpirationDate] = useState('');
+  const [ssn, setSSN] = useState('');
+  const [dob, setDOB] = useState('');
+  const [address, setAddress] = useState('');
+  const [address2, setAddress2] = useState('');
+  const [city, setCity] = useState('');
+  const [inputState, setInputState] = useState('');
+  const [zip, setZip] = useState('');
 
-  const handleSubmit = (e) => {
+  const handleSubmitDriverLicense = (e) => {
     e.preventDefault();
-    // Handle form submission, e.g., sending data to the server
-    console.log({ firstName, lastName, dob, gender });
+    // Handle submission of driver’s license form
+    console.log({ state, licenseNumber, expirationDate });
+  };
+
+  const handleSubmitSSN = (e) => {
+    e.preventDefault();
+    // Handle submission of social security form
+    console.log({ ssn, dob, address, address2, city, inputState, zip });
   };
 
   return (
@@ -42,7 +54,7 @@ const VerifyIDManual = ({ brandingLogo, userInfo }) => {
       </div>
 
       {/* Right Panel */}
-      <div className="row align-items-center justify-content-center flex-column col-md-8 col-12 pe-md-4 pe-0">
+      <div className="row align-items-center justify-content-center flex-column col-12 col-md-8 pe-md-4 pe-0">
         <div id="main-alert" className="alert alert-danger" style={{ display: 'none' }}></div>
 
         <div
@@ -55,85 +67,147 @@ const VerifyIDManual = ({ brandingLogo, userInfo }) => {
           }}
         ></div>
 
-        <div className="w-100 w-md-75 mx-auto px-5 px-md-2">
-          <h6 className="fw-bold ps-0 ms-0">Step 1 of 3</h6>
-          <div className="row justify-content-center">
-            <div className="col mx-1 bg-blue" style={{ height: '0.2rem' }}></div>
-            <div className="col mx-1 bg-blue-subtle"></div>
-            <div className="col mx-1 bg-blue-subtle"></div>
-          </div>
-          <div className="row justify-content-center">
-            <div className="col mx-1 ps-0">Verify Identity</div>
-            <div className="col mx-1 ps-0">Agree to HIPAA</div>
-            <div className="col mx-1 ps-0">Verify Address</div>
-          </div>
+        <div className="w-100 w-md-75 w-lg-50 mx-auto px-5 px-md-2">
+          <h2 className="mt-4 fw-semibold">Manual identification</h2>
+          <h6>We’ll need to grab your driver’s license and social security information to manually identify you.</h6>
 
-          <h2 className="mt-4 fw-semibold">Confirm your information</h2>
-          <h6 className="mb-5">Ensure the information collected in identity verification is correct.</h6>
+          {/* Driver’s License Form */}
+          <h3 className="mt-4 fw-semibold">Driver’s license information</h3>
+          <h6>
+            Please enter your driver’s license information. No license?{' '}
+            <a href="#" className="link-blue">
+              See other acceptable forms of ID.
+            </a>
+          </h6>
 
-          <form method="post" action="/signup/verify-id/confirm" onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmitDriverLicense}>
             <div className="mb-3">
-              <label htmlFor="first_name" className="form-label">Legal First Name</label>
+              <label htmlFor="state" className="form-label">State</label>
+              <select
+                type="state"
+                className="form-select"
+                id="state"
+                value={state}
+                onChange={(e) => setState(e.target.value)}
+              >
+                <option></option>
+                {/* Add state options here */}
+              </select>
+            </div>
+            <div className="mb-3">
+              <label htmlFor="license_number" className="form-label">License Number</label>
               <input
                 type="text"
                 className="form-control"
-                name="first_name"
-                id="first_name"
-                value={firstName}
-                onChange={(e) => setFirstName(e.target.value)}
-                required
+                id="license_number"
+                value={licenseNumber}
+                onChange={(e) => setLicenseNumber(e.target.value)}
               />
             </div>
-
             <div className="mb-3">
-              <label htmlFor="last_name" className="form-label">Legal Last Name</label>
-              <input
-                type="text"
-                className="form-control"
-                name="last_name"
-                id="last_name"
-                value={lastName}
-                onChange={(e) => setLastName(e.target.value)}
-                required
-              />
-            </div>
-
-            <div className="mb-3">
-              <label htmlFor="dob" className="form-label">Date of Birth</label>
+              <label htmlFor="expiration_date" className="form-label">Expiration Date</label>
               <input
                 type="date"
                 className="form-control"
-                name="date_of_birth"
-                id="date_of_birth"
-                value={dob}
-                onChange={(e) => setDob(e.target.value)}
-                required
+                id="expiration_date"
+                value={expirationDate}
+                onChange={(e) => setExpirationDate(e.target.value)}
               />
             </div>
-
-            <div className="mb-3">
-              <label htmlFor="gender" className="form-label">Born biologically as</label>
-              <select
-                name="gender"
-                id="gender"
-                className="form-select"
-                value={gender}
-                onChange={(e) => setGender(e.target.value)}
-                required
-              >
-                <option value="" disabled>Please Select</option>
-                <option value="m">Male</option>
-                <option value="f">Female</option>
-                <option value="o">Other</option>
-              </select>
-            </div>
-
-            <div className="d-flex my-4">
-              <button type="submit" className="btn btn-primary rounded-pill w-100">
-                Confirm and Continue
-              </button>
+            <div className="d-flex">
+              <button type="submit" className="btn btn-primary rounded-pill w-100">Submit</button>
             </div>
           </form>
+
+          <hr />
+
+          {/* Social Security Form */}
+          <h2 className="mt-4 fw-semibold">Social security information</h2>
+          <h6>Please enter your social security information.</h6>
+
+          <form className="row" onSubmit={handleSubmitSSN}>
+            <div className="col-md-6">
+              <label htmlFor="ssn" className="form-label">SSN (Last 4 digits)</label>
+              <input
+                type="text"
+                className="form-control"
+                id="ssn"
+                value={ssn}
+                onChange={(e) => setSSN(e.target.value)}
+              />
+            </div>
+            <div className="col-md-6">
+              <label htmlFor="dob" className="form-label">Date of birth</label>
+              <input
+                type="date"
+                className="form-control"
+                id="dob"
+                value={dob}
+                onChange={(e) => setDOB(e.target.value)}
+              />
+            </div>
+            <div className="col-12">
+              <label htmlFor="address" className="form-label">Address</label>
+              <input
+                type="text"
+                className="form-control"
+                id="address"
+                placeholder="1234 Main St"
+                value={address}
+                onChange={(e) => setAddress(e.target.value)}
+              />
+            </div>
+            <div className="col-12">
+              <label htmlFor="address2" className="form-label">Address 2</label>
+              <input
+                type="text"
+                className="form-control"
+                id="address2"
+                placeholder="Apartment, studio, or floor"
+                value={address2}
+                onChange={(e) => setAddress2(e.target.value)}
+              />
+            </div>
+            <div className="col-md-6">
+              <label htmlFor="city" className="form-label">City</label>
+              <input
+                type="text"
+                className="form-control"
+                id="city"
+                value={city}
+                onChange={(e) => setCity(e.target.value)}
+              />
+            </div>
+            <div className="col-md-4">
+              <label htmlFor="inputState" className="form-label">State</label>
+              <select
+                id="inputState"
+                className="form-select"
+                value={inputState}
+                onChange={(e) => setInputState(e.target.value)}
+              >
+                <option selected>Choose...</option>
+                {/* Add state options here */}
+              </select>
+            </div>
+            <div className="col-md-2">
+              <label htmlFor="zip" className="form-label">Zip</label>
+              <input
+                type="text"
+                className="form-control"
+                id="zip"
+                value={zip}
+                onChange={(e) => setZip(e.target.value)}
+              />
+            </div>
+            <div className="d-flex my-4">
+              <button type="submit" className="btn btn-primary rounded-pill w-100">Submit</button>
+            </div>
+          </form>
+
+          <a href="/signup/verify-id" className="link-primary text-center d-block my-4">
+            <i className="fa fa-arrow-left"></i> Back to digital verification
+          </a>
         </div>
       </div>
     </div>
