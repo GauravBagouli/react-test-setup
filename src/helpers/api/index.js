@@ -1,3 +1,4 @@
+/* eslint-disable */
 import axios from './instance';
 import * as auth from '../auth';
 import apiKeys from './apiKeys';
@@ -131,8 +132,6 @@ export const setAuthorization = () => {
     process.browser && localStorage.getItem('accessToken')
       ? localStorage.getItem('accessToken')
       : '';
-  axios.defaults.headers.common.Platform = `Data Extraction Portal`;
   axios.defaults.headers.common[`Version`] = '1.0.0';
-  axios.defaults.headers.common.version = 'v1'; // API VERSION
 };
 setAuthorization();

@@ -5,7 +5,7 @@ module.exports = {
     jest: true,
     node: true,
   },
-  extends: ['eslint:recommended', 'plugin:react/recommended', 'prettier'],
+  extends: ['eslint:recommended', 'plugin:react/recommended', 'prettier', 'next'],
   parserOptions: {
     ecmaFeatures: {
       jsx: true,
@@ -17,6 +17,11 @@ module.exports = {
   rules: {
     'react/react-in-jsx-scope': 'off',
     'react/prop-types': 'off',
+    "react/no-unescaped-entities": "off",
+    "@next/next/no-page-custom-font": "off",
+    "react/no-unknown-property": "off",
+    "react/jsx-no-target-blank": "off",
+    "no-undef": 'off',
   },
   settings: {
     react: {
@@ -24,3 +29,5 @@ module.exports = {
     },
   },
 };
+
+

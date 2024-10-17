@@ -1,7 +1,6 @@
-import API, { setAuthorization } from '../../helpers/api';
+import API from '../../helpers/api';
 import { handleErrorMessage } from '../../utils/commonFunctions';
 import { get } from 'lodash';
-import { Toaster, toast } from 'react-hot-toast';
 import * as auth from '../../helpers/auth';
 import { setTheme } from './theme';
 
