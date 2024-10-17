@@ -55,7 +55,7 @@ const MFAConfirm = ({ csrfToken, mfaToken, oobCode, brandingLogo }) => {
           <div
             className="logo login-logo mx-auto"
             style={{
-              backgroundImage: `url(${brandingLogo})`,
+              backgroundImage: `url(https://cdn.assets.pluto-service.com/patient-web-clients/pluto/nav.png)`,
               height: '100px',
               backgroundSize: 'contain',
               backgroundRepeat: 'no-repeat',
