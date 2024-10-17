@@ -1,4 +1,5 @@
 #pluto-modal .modal-header {
+<<<<<<< HEAD
     height: 6rem; 
     background-position: center; 
     background-repeat: no-repeat; 
@@ -8,3 +9,14 @@
   #pluto-modal .btn-close{
     font-size: 0.6rem;
   }
+=======
+  height: 6rem;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 4rem;
+}
+
+#pluto-modal .btn-close {
+  font-size: 0.6rem;
+}
+>>>>>>> ff8348d7b740b264f72cb543e76f72e7c34261e1

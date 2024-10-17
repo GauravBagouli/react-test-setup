@@ -1,4 +1,5 @@
 @font-face {
+<<<<<<< HEAD
     font-family: "Pluto-Primary";
     src: url("https://cdn.assets.pluto-service.com/css/fonts/PolySans/PolySans-Neutral.woff") format("woff"), url("https://cdn.assets.pluto-service.com/css/fonts/PolySans/PolySans-Neutral.ttf")  format("truetype");
   }
@@ -6,18 +7,53 @@
 @font-face {
   font-family: "Pluto-Primary";
   src: url("https://cdn.assets.pluto-service.com/css/fonts/PolySans/PolySans-Bulky.woff") format("woff"), url("https://cdn.assets.pluto-service.com/css/fonts/PolySans/PolySans-Bulky.ttf")  format("truetype");
+=======
+  font-family: 'Pluto-Primary';
+  src:
+    url('https://cdn.assets.pluto-service.com/css/fonts/PolySans/PolySans-Neutral.woff')
+      format('woff'),
+    url('https://cdn.assets.pluto-service.com/css/fonts/PolySans/PolySans-Neutral.ttf')
+      format('truetype');
+}
+
+@font-face {
+  font-family: 'Pluto-Primary';
+  src:
+    url('https://cdn.assets.pluto-service.com/css/fonts/PolySans/PolySans-Bulky.woff')
+      format('woff'),
+    url('https://cdn.assets.pluto-service.com/css/fonts/PolySans/PolySans-Bulky.ttf')
+      format('truetype');
+>>>>>>> ff8348d7b740b264f72cb543e76f72e7c34261e1
   font-weight: bold;
 }
 
 @font-face {
+<<<<<<< HEAD
   font-family: "Pluto-Primary";
   src: url("https://cdn.assets.pluto-service.com/css/fonts/PolySans/PolySans-Median.woff") format("woff"), url("https://cdn.assets.pluto-service.com/css/fonts/PolySans/PolySans-Median.ttf")  format("truetype");
+=======
+  font-family: 'Pluto-Primary';
+  src:
+    url('https://cdn.assets.pluto-service.com/css/fonts/PolySans/PolySans-Median.woff')
+      format('woff'),
+    url('https://cdn.assets.pluto-service.com/css/fonts/PolySans/PolySans-Median.ttf')
+      format('truetype');
+>>>>>>> ff8348d7b740b264f72cb543e76f72e7c34261e1
   font-weight: 600;
 }
 
 @font-face {
+<<<<<<< HEAD
   font-family: "Pluto-Primary";
   src: url("https://cdn.assets.pluto-service.com/css/fonts/PolySans/PolySans-Slim.woff") format("woff"), url("https://cdn.assets.pluto-service.com/css/fonts/PolySans/PolySans-Slim.ttf")  format("truetype");
+=======
+  font-family: 'Pluto-Primary';
+  src:
+    url('https://cdn.assets.pluto-service.com/css/fonts/PolySans/PolySans-Slim.woff')
+      format('woff'),
+    url('https://cdn.assets.pluto-service.com/css/fonts/PolySans/PolySans-Slim.ttf')
+      format('truetype');
+>>>>>>> ff8348d7b740b264f72cb543e76f72e7c34261e1
   font-weight: lighter;
 }
 
@@ -25,6 +61,7 @@ html {
   height: 100%;
 }
 
+<<<<<<< HEAD
 body { 
   --bs-body-font-family: 'Pluto-Primary'; 
   height: 100%;
@@ -91,3 +128,69 @@ body {
   }
   
   
+=======
+body {
+  --bs-body-font-family: 'Pluto-Primary';
+  height: 100%;
+}
+
+.logo {
+  height: 5rem;
+  width: 10rem;
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.pluto-footer {
+  /* position: fixed; */
+  bottom: 0;
+  width: 100%;
+  color: #7987a1;
+  display: block;
+  border-top: 1px solid #e6e9e6;
+  background: #fff;
+}
+
+.pluto-footer-inner {
+  height: 2.75rem;
+}
+
+.pluto-footer .row {
+  font-size: 0.8rem !important;
+}
+
+#paging {
+  padding: 0 20px 20px 20px;
+  font-size: 13px;
+  margin-top: 10px;
+}
+
+#paging a {
+  color: #000;
+  background: #e0e0e0;
+  padding: 8px 12px;
+  margin-right: 5px;
+  text-decoration: none;
+}
+
+#paging a.aktif {
+  background: #000 !important;
+  color: #fff;
+}
+
+#paging a:hover {
+  border: 1px solid #000;
+}
+
+.hidden {
+  display: none;
+}
+
+.signature-pad {
+  left: 0;
+  top: 0;
+  border-radius: 0.4rem;
+  border: 1px solid #e6e9e6;
+}
+>>>>>>> ff8348d7b740b264f72cb543e76f72e7c34261e1

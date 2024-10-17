@@ -1,4 +1,5 @@
 @font-face {
+<<<<<<< HEAD
     font-family: "Pluto-Primary";
     src: url("https://cdn.assets.pluto-service.com/css/fonts/PolySans/PolySans-Neutral.woff") format("woff"), url("https://cdn.assets.pluto-service.com/css/fonts/PolySans/PolySans-Neutral.ttf")  format("truetype");
   }
@@ -6,16 +7,43 @@
 @font-face {
   font-family: "Pluto-Primary";
   src: url("https://cdn.assets.pluto-service.com/css/fonts/PolySans/PolySans-Bulky.woff") format("woff"), url("https://cdn.assets.pluto-service.com/css/fonts/PolySans/PolySans-Bulky.ttf")  format("truetype");
+=======
+  font-family: 'Pluto-Primary';
+  src:
+    url('https://cdn.assets.pluto-service.com/css/fonts/PolySans/PolySans-Neutral.woff')
+      format('woff'),
+    url('https://cdn.assets.pluto-service.com/css/fonts/PolySans/PolySans-Neutral.ttf')
+      format('truetype');
+}
+
+@font-face {
+  font-family: 'Pluto-Primary';
+  src:
+    url('https://cdn.assets.pluto-service.com/css/fonts/PolySans/PolySans-Bulky.woff')
+      format('woff'),
+    url('https://cdn.assets.pluto-service.com/css/fonts/PolySans/PolySans-Bulky.ttf')
+      format('truetype');
+>>>>>>> ff8348d7b740b264f72cb543e76f72e7c34261e1
   font-weight: bold;
 }
 
 @font-face {
+<<<<<<< HEAD
   font-family: "Pluto-Primary";
   src: url("https://cdn.assets.pluto-service.com/css/fonts/PolySans/PolySans-Median.woff") format("woff"), url("https://cdn.assets.pluto-service.com/css/fonts/PolySans/PolySans-Median.ttf")  format("truetype");
+=======
+  font-family: 'Pluto-Primary';
+  src:
+    url('https://cdn.assets.pluto-service.com/css/fonts/PolySans/PolySans-Median.woff')
+      format('woff'),
+    url('https://cdn.assets.pluto-service.com/css/fonts/PolySans/PolySans-Median.ttf')
+      format('truetype');
+>>>>>>> ff8348d7b740b264f72cb543e76f72e7c34261e1
   font-weight: 600;
 }
 
 @font-face {
+<<<<<<< HEAD
   font-family: "Pluto-Primary";
   src: url("https://cdn.assets.pluto-service.com/css/fonts/PolySans/PolySans-Slim.woff") format("woff"), url("https://cdn.assets.pluto-service.com/css/fonts/PolySans/PolySans-Slim.ttf")  format("truetype");
   font-weight: lighter;
@@ -184,4 +212,179 @@ body{
     .galleryImageWrapper{
         padding: 0 1rem;
     }
+=======
+  font-family: 'Pluto-Primary';
+  src:
+    url('https://cdn.assets.pluto-service.com/css/fonts/PolySans/PolySans-Slim.woff')
+      format('woff'),
+    url('https://cdn.assets.pluto-service.com/css/fonts/PolySans/PolySans-Slim.ttf')
+      format('truetype');
+  font-weight: lighter;
+}
+
+body {
+  font-family: 'Pluto-Primary', sans-serif;
+  color: #191a1c;
+  background-color: #fff;
+}
+
+#index-nav {
+  -webkit-transition: background-color 500ms;
+  transition: background-color 500ms;
+}
+
+.scrolled {
+  box-shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.25);
+}
+
+.filter {
+  height: 100%;
+  position: relative;
+  width: 100%;
+  z-index: 40;
+}
+
+.link-filter {
+  height: 100%;
+  position: relative;
+  width: 100%;
+  z-index: 40;
+  -webkit-transition: background-color 500ms;
+  transition: background-color 500ms;
+}
+
+.link-filter-hover {
+  height: 100%;
+  position: relative;
+  width: 100%;
+  z-index: 40;
+}
+
+.landing-sass-header-content {
+  padding-bottom: 0;
+  border-bottom: 2.2rem solid black;
+  border-left: 2.2rem solid black;
+}
+
+.section_border {
+  width: 10rem;
+  height: 0.5rem;
+  border-radius: 1rem;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+}
+
+.galleryImage {
+  height: 15rem;
+  border-radius: 12px;
+  padding: 0;
+  margin: 1em auto;
+  box-shadow: 5px 3px 6px rgba(0, 0, 0, 0.1);
+  background-color: #000;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  -webkit-transition: background-image 750ms;
+  transition: background-image 750ms;
+  overflow: hidden;
+}
+
+.galleryImageWrapper {
+  padding: 0 5rem;
+}
+
+.infoBackground {
+  position: relative;
+  width: 100%;
+  margin-bottom: 0;
+  margin-right: auto;
+  margin-left: auto;
+  text-align: center;
+  transition: top 750ms ease-out;
+  height: 100%;
+  padding: 0.2rem;
+  top: 70%;
+}
+
+.infoBackgroundHover {
+  top: 0;
+}
+
+.infoBackgroundHeader {
+  margin: 0;
+  transition: padding 750ms ease-out;
+  font-size: 1.3rem;
+  padding-bottom: 2rem;
+  padding-top: 1rem;
+}
+
+.infoBackgroundHeaderHover {
+  padding-bottom: 0.2rem;
+  padding-top: 0.8rem;
+}
+
+.infoBackground p {
+  width: 80%;
+  margin: 0 auto 0.75em auto;
+  font-size: 0.975em;
+}
+
+.infoBackground a {
+  font-weight: bold;
+  font-size: 1em;
+}
+
+.thumbnail {
+  display: block;
+  max-width: 24rem;
+  height: 15rem;
+  border-radius: 12px;
+  padding: 0;
+  margin: 1em auto;
+  box-shadow: 5px 3px 6px rgba(0, 0, 0, 0.1);
+  background-color: #000;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  -webkit-transition: background-image 750ms;
+  transition: background-image 750ms;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.visit-link {
+  -webkit-transition: visibility 500ms;
+  transition: visibility 500ms;
+  visibility: hidden;
+  opacity: 0;
+  transition:
+    visibility 0s,
+    opacity 0.5s linear;
+  /* text-decoration: underline; */
+  font-size: 1.5rem;
+}
+
+.visit-link-hover {
+  visibility: visible;
+  opacity: 1;
+}
+
+@media only screen and (max-width: 1200px) {
+  .galleryImageWrapper {
+    padding: 0 3rem;
+  }
+}
+
+@media only screen and (max-width: 991px) {
+  .galleryImageWrapper {
+    padding: 0 5rem;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .galleryImageWrapper {
+    padding: 0 1rem;
+  }
+>>>>>>> ff8348d7b740b264f72cb543e76f72e7c34261e1
 }
