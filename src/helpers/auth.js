@@ -131,7 +131,7 @@ export function allLocalStorageItem() {
   try {
     let values = [],
       keys = Object.keys(localStorage);
-    keys.forEach((item, index) => values.push(localStorage.getItem(item)));
+    keys.forEach((item) => values.push(localStorage.getItem(item)));
     return JSON.parse(values);
   } catch (error) {
     return false;
