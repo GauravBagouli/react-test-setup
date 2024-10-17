@@ -1,13 +1,17 @@
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 
-const MFAConfirm = ({ csrfToken, mfaToken, oobCode, brandingLogo }) => {
+const MFAConfirm = (props, { csrfToken, mfaToken, oobCode, brandingLogo }) => {
   const router = useRouter();
   const [code, setCode] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    router.push('/home');
+    if (props?.page === 'signup') {
+      router.push('/signup/verify-id');
+    } else {
+      router.push('/home');
+    }
   };
 
   return (

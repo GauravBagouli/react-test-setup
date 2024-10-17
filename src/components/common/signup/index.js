@@ -1,12 +1,15 @@
-import { useRouter } from 'next/router'
-import React from 'react'
+import { encodeData } from '@/helpers/auth';
+import { useRouter } from 'next/router';
+import React from 'react';
 
 export default function Signup() {
-
-  const router = useRouter()
+  const router = useRouter();
   return (
     <>
-      <div className="row justify-content-center min-vh-100" style={{ minHeight: "100vh" }}>
+      <div
+        className="row justify-content-center min-vh-100"
+        style={{ minHeight: '100vh' }}
+      >
         <div className="col-4 bg-blue d-none d-md-flex align-items-center justify-content-center min-vh-100">
           <ul className="text-white">
             <li className="list-group-item d-flex mb-4">
@@ -46,7 +49,7 @@ export default function Signup() {
             <div
               className="logo login-logo mx-auto mt-8"
               style={{
-                backgroundImage: `url(https://cdn.assets.pluto-service.com/patient-web-clients/pluto/nav.png)`
+                backgroundImage: `url(https://cdn.assets.pluto-service.com/patient-web-clients/pluto/nav.png)`,
               }}
             />
             <div id="login-form-container">
@@ -56,7 +59,7 @@ export default function Signup() {
               <form
                 id="login-form"
                 method="POST"
-                action="/signup"
+                action="#"
                 className="needs-validation"
                 noValidate=""
               >
@@ -137,12 +140,12 @@ export default function Signup() {
                     name="marketing_authorization"
                   />
                   <label className="form-check-label" htmlFor="over18">
-                    I consent to receive{" "}
+                    I consent to receive{' '}
                     <a href="#modalMarketingAuth" data-bs-toggle="modal">
                       marketing communication
-                    </a>{" "}
-                    from Pluto Health about products and services. I can opt out at
-                    any time as described in the
+                    </a>{' '}
+                    from Pluto Health about products and services. I can opt out
+                    at any time as described in the
                     <a
                       href="https://www.pluto.health/privacy-practices"
                       target="_blank"
@@ -152,8 +155,13 @@ export default function Signup() {
                   </label>
                 </div>
                 <button
-                  onClick={()=> {router.push("/signup/mfa/confirm")}}
-                  // type="submit"
+                  onClick={() => {
+                    router.push({
+                      pathname: '/login/mfa/confirm',
+                      query: { page: encodeData('signup') },
+                    });
+                  }}
+                  type="button"
                   className="btn btn-primary rounded-pill my-3 w-100"
                 >
                   Continue
@@ -175,9 +183,9 @@ export default function Signup() {
         <div className="modal-dialog modal-lg" role="document">
           <div className="modal-content">
             <div className="modal-body">
-              {"{"}
-              {"{"} sanitizeHTML .Consents.TermsOfUse {"}"}
-              {"}"}
+              {'{'}
+              {'{'} sanitizeHTML .Consents.TermsOfUse {'}'}
+              {'}'}
             </div>
             <div className="modal-footer justify-content-center">
               <button
@@ -191,13 +199,18 @@ export default function Signup() {
           </div>
         </div>
       </div>
-      <div className="modal" tabIndex={-1} role="dialog" id="modalPrivacyPolicy">
+      <div
+        className="modal"
+        tabIndex={-1}
+        role="dialog"
+        id="modalPrivacyPolicy"
+      >
         <div className="modal-dialog modal-lg" role="document">
           <div className="modal-content modal-lg">
             <div className="modal-body">
-              {"{"}
-              {"{"} sanitizeHTML .Consents.PrivacyPolicy {"}"}
-              {"}"}
+              {'{'}
+              {'{'} sanitizeHTML .Consents.PrivacyPolicy {'}'}
+              {'}'}
             </div>
             <div className="modal-footer justify-content-center">
               <button
@@ -215,9 +228,9 @@ export default function Signup() {
         <div className="modal-dialog modal-lg" role="document">
           <div className="modal-content modal-lg">
             <div className="modal-body">
-              {"{"}
-              {"{"} sanitizeHTML .Consents.NoticeOfPrivacyPractices {"}"}
-              {"}"}
+              {'{'}
+              {'{'} sanitizeHTML .Consents.NoticeOfPrivacyPractices {'}'}
+              {'}'}
             </div>
             <div className="modal-footer justify-content-center">
               <button
@@ -231,13 +244,18 @@ export default function Signup() {
           </div>
         </div>
       </div>
-      <div className="modal" tabIndex={-1} role="dialog" id="modalMarketingAuth">
+      <div
+        className="modal"
+        tabIndex={-1}
+        role="dialog"
+        id="modalMarketingAuth"
+      >
         <div className="modal-dialog modal-lg" role="document">
           <div className="modal-content modal-lg">
             <div className="modal-body">
-              {"{"}
-              {"{"} sanitizeHTML .Consents.MarketingAuth {"}"}
-              {"}"}
+              {'{'}
+              {'{'} sanitizeHTML .Consents.MarketingAuth {'}'}
+              {'}'}
             </div>
             <div className="modal-footer justify-content-center">
               <button
@@ -252,6 +270,5 @@ export default function Signup() {
         </div>
       </div>
     </>
-
-  )
+  );
 }
