@@ -1,7 +1,5 @@
 const apiKeys = {
-
   // login api
-  userLogin: 'users/login',
-  
+  userLogin: 'login',
 };
 export default apiKeys;

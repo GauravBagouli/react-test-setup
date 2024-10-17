@@ -20,24 +20,24 @@ class API {
   static apiGet = async (key, args) => {
     if (typeof args === 'string') {
       return axios.get(getUrlByKey(key) + args, {
-        withCredentials: false
+        withCredentials: false,
       });
     }
     return axios.get(getUrlByKey(key), {
       data: args,
-      withCredentials: false
+      withCredentials: false,
     });
   };
 
   static apiGetByKey = async (key, args, query) => {
     if (typeof args === 'string') {
       return axios.get(getUrlByKey(key) + args, {
-        withCredentials: false
+        withCredentials: false,
       });
     }
     return axios.get(`${getUrlByKey(key)}/query?${query}`, {
       data: args,
-      withCredentials: false
+      withCredentials: false,
     });
   };
 
@@ -52,11 +52,11 @@ class API {
   static apiPut = async (key, args) => {
     if (typeof args === 'string') {
       return axios.put(getUrlByKey(key) + args, {
-        withCredentials: false
+        withCredentials: false,
       });
     }
     return axios.put(getUrlByKey(key), args, {
-      withCredentials: false
+      withCredentials: false,
     });
   };
 
@@ -109,7 +109,7 @@ axios.interceptors.request.use(
   },
   (error) => {
     return Promise.reject(error);
-  }
+  },
 );
 
 axios.interceptors.response.use(
@@ -122,7 +122,7 @@ axios.interceptors.response.use(
       auth.logout();
     }
     return Promise.reject(error);
-  }
+  },
 );
 
 export const setAuthorization = () => {
@@ -133,5 +133,6 @@ export const setAuthorization = () => {
       ? localStorage.getItem('accessToken')
       : '';
   axios.defaults.headers.common[`Version`] = '1.0.0';
+  axios.defaults.headers.common['Content-Type'] = 'application/json';
 };
 setAuthorization();

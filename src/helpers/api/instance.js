@@ -5,7 +5,7 @@ const VERSION = '/pw';
 const API = HOST + VERSION;
 
 const instance = axios.create({
-  baseURL: API
+  baseURL: HOST,
 });
 
 export default instance;

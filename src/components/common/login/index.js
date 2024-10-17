@@ -1,11 +1,37 @@
+import React, { useEffect, useState } from 'react';
+import API from '@/helpers/api';
+import { handleErrorMessage } from '@/utils/commonFunctions';
 import { useRouter } from 'next/router';
-import React from 'react';
 
 const Login = ({ branding, csrfToken }) => {
   const router = useRouter();
-  const handleLogin = (e) => {
+  const [formData, setFormData] = useState({ Username: '', Password: '' });
+  const handleLogin = async (e) => {
+    let payload = {
+      Username: formData.Username,
+      Password: formData.Password,
+    };
     e.preventDefault();
-    router.push('/login/mfa/choose');
+    // const response = await fetch("http://localhost:3000/login", {
+    //     method: "POST",
+    //     headers: {
+    //         "Content-Type": "application/json",
+    //     },
+    //     body: JSON.stringify(payload),
+    // });
+    // console.log("response", response)
+    API.apiPost('userLogin', payload, {
+      headers: { 'Content-Type': 'application/json' },
+    })
+      .then(({ data }) => {
+        if (data?.success) {
+          router.push('/login/mfa/choose');
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        handleErrorMessage(error);
+      });
   };
   return (
     <div className="row justify-content-center" style={{ minHeight: '102vh' }}>
@@ -67,6 +93,9 @@ const Login = ({ branding, csrfToken }) => {
                 name="username"
                 placeholder="Enter your email address"
                 type="email"
+                onChange={(e) =>
+                  setFormData({ ...formData, Username: e.target.value })
+                }
                 required
               />
               <label htmlFor="password" className="form-label text-start">
@@ -79,6 +108,9 @@ const Login = ({ branding, csrfToken }) => {
                 placeholder="Enter your password"
                 type="password"
                 required
+                onChange={(e) =>
+                  setFormData({ ...formData, Password: e.target.value })
+                }
               />
               <div className="text-end mb-5">
                 <a
