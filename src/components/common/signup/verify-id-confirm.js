@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const VerifyIDConfirm = ({ brandingLogo, userInfo }) => {
+const VerifyIDConfirm = ({ userInfo }) => {
   const [firstName, setFirstName] = useState(userInfo?.FirstName || '');
   const [lastName, setLastName] = useState(userInfo?.LastName || '');
   const [dob, setDob] = useState(userInfo?.DateOfBirth || '');
