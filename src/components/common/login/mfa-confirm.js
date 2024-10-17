@@ -92,9 +92,9 @@ const MFAConfirm = ({ csrfToken, mfaToken, oobCode, brandingLogo }) => {
           <div className="text-center">
             <p>Safe. Secure. Trusted.</p>
             <div className="d-flex justify-content-center">
-              <img className="me-2" src="/web/img/hipaa.png" alt="hipaa logo" style={{ width: '50px' }} />
-              <img className="me-2" src="/web/img/soc2.png" alt="soc2 logo" style={{ width: '50px' }} />
-              <img className="me-2" src="/web/img/iso.png" alt="iso logo" style={{ width: '50px' }} />
+              <img className="me-2" src="/img/hipaa.png" alt="HIPAA logo" />
+              <img className="me-2" src="/img/soc2.png" alt="SOC2 logo" />
+              <img className="me-2" src="/img/iso.png" alt="ISO logo" />
             </div>
           </div>
         </div>
