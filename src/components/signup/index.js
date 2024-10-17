@@ -159,9 +159,9 @@ export default function Signup() {
             <div className="text-center">
               <p className="fs-6">Safe. Secure. Trusted.</p>
               <div className="d-flex justify-content-center">
-                <img className="me-2" src="/static/img/hipaa.png" alt="hipaa logo" />
-                <img className="me-2" src="/static/img/soc2.png" alt="soc2 logo" />
-                <img className="me-2" src="/static/img/iso.png" alt="iso logo" />
+                <img className="me-2" src="/img/hipaa.png" alt="hipaa logo" />
+                <img className="me-2" src="/img/soc2.png" alt="soc2 logo" />
+                <img className="me-2" src="/img/iso.png" alt="iso logo" />
               </div>
             </div>
           </div>
