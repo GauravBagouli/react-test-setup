@@ -1,22 +1,22 @@
-/* eslint-disable no-underscore-dangle */
-import { createStore, applyMiddleware, compose } from 'redux';
-// import promise from 'redux-promise';
-// import multi from 'redux-multi';
-import thunk from 'redux-thunk';
-import reducers from './reducers/index';
+import { configureStore } from '@reduxjs/toolkit';
+import {
+  useDispatch as useAppDispatch,
+  useSelector as useAppSelector
+} from 'react-redux';
+import rootReducer from './reducers';
 
-// const devTools = window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(); //  "redux-devtools-extension": "^2.13.9"
-let composeEnhancers = compose;
-// to show store on redux extensions
-if (process.env.NODE_ENV !== 'production' && typeof window === 'object') {
-  /* eslint-disable no-underscore-dangle */
-  if (window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__)
-    composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({});
-}
-const store = composeEnhancers(applyMiddleware(thunk))(createStore)(reducers);
+const store = configureStore({
+  reducer: rootReducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      thunk: true,
+      serializableCheck: false,
+      immutableCheck: false
+    })
+});
 
-export default store;
+const { dispatch } = store;
+const useSelector = useAppSelector;
+const useDispatch = () => useAppDispatch();
 
-// export const initStore = (initialState = {}) => {
-//   return createStore(reducers, initialState, applyMiddleware(multi, thunk, promise));
-// };
+export { store, dispatch, useSelector, useDispatch };
