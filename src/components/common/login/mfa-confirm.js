@@ -22,7 +22,7 @@ const MFAConfirm = ({ page, mfaToken, oobCode, csrfToken, brandingLogo }) => {
           response?.statusText === 'OK'
         ) {
           if (page === 'signup') {
-            router.push('/signup/addresses');
+            router.push('/signup/verify-id');
           } else {
             router.push('/home');
           }
