@@ -158,7 +158,7 @@ export default function Signup() {
                   onClick={() => {
                     router.push({
                       pathname: '/login/mfa/confirm',
-                      query: { page: encodeData('signup') },
+                      query: { page: encodeData({ page: 'signup' }) },
                     });
                   }}
                   type="button"

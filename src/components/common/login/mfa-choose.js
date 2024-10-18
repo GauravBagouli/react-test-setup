@@ -1,20 +1,58 @@
 import React, { useEffect, useState } from 'react';
+import _ from 'lodash';
 import { useRouter } from 'next/router';
+import API from '@/helpers/api';
+import toast from 'react-hot-toast';
+import { handleErrorMessage } from '@/utils/commonFunctions';
+import { encodeData } from '@/helpers/auth';
 
-const MFAChoose = ({ branding, csrfToken, mfaToken, mfaAuthenticators }) => {
+const MFAChoose = ({ mfaAuthenticators, mfaToken, branding, csrfToken }) => {
   const router = useRouter();
-  const [mfaAuthenticatorList, setMfaAuthenticatorList] = useState(
-    mfaAuthenticators || [{ ID: 1, Name: 'test+01@pluto.health' }],
-  );
+  const [mfaAuthenticatorList, setMfaAuthenticatorList] =
+    useState(mfaAuthenticators);
+  const [selectedMfaAuthenticator, setSelectedMfaAuthenticator] = useState({});
 
   useEffect(() => {
-    setMfaAuthenticatorList(
-      mfaAuthenticators || [{ ID: 1, Name: 'test+01@pluto.health' }],
-    );
-  }, [mfaAuthenticators]);
+    setMfaAuthenticatorList(mfaAuthenticators);
+    setSelectedMfaAuthenticator(mfaAuthenticators?.[0]?.id);
+  }, [mfaAuthenticators?.length]);
 
   const handleSend = () => {
-    router.push('/login/mfa/confirm');
+    let mfaAuthenticator = mfaAuthenticatorList.find(
+      (item) => item.id === selectedMfaAuthenticator,
+    );
+    if (!mfaAuthenticator) {
+      return toast.error('Please select an authenticator');
+    }
+    let payload = {
+      id: mfaAuthenticator?.id,
+      mfa_token: mfaToken,
+    };
+    API.apiPost('mfaChoose', payload)
+      .then((response) => {
+        if (
+          response?.data &&
+          response?.status === 200 &&
+          response?.statusText === 'OK'
+        ) {
+          let queryData = {
+            ...response?.data,
+            mfa_token: mfaToken,
+          };
+          router.push({
+            pathname: '/login/mfa/confirm',
+            query: { data: encodeData(queryData) },
+          });
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        handleErrorMessage(error);
+      });
+  };
+
+  const handleMfaAuthenticatorChange = (e) => {
+    setSelectedMfaAuthenticator(e?.target?.value);
   };
 
   return (
@@ -71,21 +109,22 @@ const MFAChoose = ({ branding, csrfToken, mfaToken, mfaAuthenticators }) => {
               className="needs-validation w-auto"
               noValidate
             >
-              {console.log('mfaAuthenticatorList', mfaAuthenticatorList)}
               {mfaAuthenticatorList?.map((authenticator) => (
-                <div className="form-check" key={authenticator.ID}>
+                <div className="form-check" key={authenticator?.id}>
                   <input
                     className="form-check-input"
                     type="radio"
                     name="id"
-                    value={authenticator.ID}
-                    id={authenticator.ID}
+                    value={authenticator?.id}
+                    id={authenticator?.id}
+                    checked={authenticator?.id === selectedMfaAuthenticator}
+                    onChange={(e) => handleMfaAuthenticatorChange(e)}
                   />
                   <label
                     className="form-check-label"
-                    htmlFor={authenticator.ID}
+                    htmlFor={authenticator?.id}
                   >
-                    {authenticator.Name}
+                    {authenticator?.name}
                   </label>
                 </div>
               ))}

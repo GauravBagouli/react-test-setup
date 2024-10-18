@@ -10,6 +10,18 @@ const MFAConfirmComponent = dynamic(
 export default function MFAConfirm() {
   const router = useRouter();
   const { query } = router;
-  const decodequery = decodeData(query?.page);
-  return <MFAConfirmComponent page={decodequery} />;
+  let decodequery;
+  if (query.page) {
+    decodequery = decodeData(query?.page);
+  } else {
+    decodequery = decodeData(query?.data);
+  }
+
+  return (
+    <MFAConfirmComponent
+      page={decodequery?.page}
+      mfaToken={decodequery?.mfa_token}
+      oobCode={decodequery?.oob_code}
+    />
+  );
 }

@@ -1,17 +1,37 @@
 import { useState } from 'react';
 import { useRouter } from 'next/router';
+import API from '@/helpers/api';
+import { handleErrorMessage } from '@/utils/commonFunctions';
 
-const MFAConfirm = (props, { csrfToken, mfaToken, oobCode, brandingLogo }) => {
+const MFAConfirm = ({ page, mfaToken, oobCode, csrfToken, brandingLogo }) => {
   const router = useRouter();
   const [code, setCode] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (props?.page === 'signup') {
-      router.push('/signup/verify-id');
-    } else {
-      router.push('/home');
-    }
+    let payload = {
+      mfa_token: mfaToken,
+      code: code,
+      oob_code: oobCode,
+    };
+    API.apiPost('mfaConfirm', payload)
+      .then((response) => {
+        if (
+          response?.data &&
+          response?.status === 200 &&
+          response?.statusText === 'OK'
+        ) {
+          if (page === 'signup') {
+            router.push('/signup/addresses');
+          } else {
+            router.push('/home');
+          }
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        handleErrorMessage(error);
+      });
   };
 
   return (
