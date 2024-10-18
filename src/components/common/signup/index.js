@@ -1,9 +1,71 @@
+import API from '@/helpers/api';
 import { encodeData } from '@/helpers/auth';
+import { handleErrorMessage } from '@/utils/commonFunctions';
 import { useRouter } from 'next/router';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+
+let initalData = {
+  terms_of_use: '',
+  privacy_policy: '',
+  notice_of_privacy_practices: '',
+  marketing_authorization: '',
+}
+
 
 export default function Signup() {
   const router = useRouter();
+  const [consents, setConsent] = useState(initalData)
+  const [formData, setFormData] = useState({ email: '', password: '', gate_pass: '46a52b' });
+
+  const fetchData = () => {
+    API.apiGet('userSignup', '?code=46a52b')
+      .then((response) => {
+        console.log('response', response)
+        if (
+          response?.data &&
+          response?.status === 200 &&
+          response?.statusText === 'OK'
+        ) {
+          console.log(response.data)
+          setConsent(response.data)
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        handleErrorMessage(error);
+      });
+  }
+
+  useEffect(() => {
+    fetchData()
+  }, [])
+
+  const handleInputChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (e.target.checkValidity()) {
+
+      let payload = { Email: formData.email, Password: formData.password, gate_pass: formData.gate_pass };
+      try {
+        const response = await API.apiPost('userSignup', payload);
+        if (response?.status === 200) {
+          router.push({
+            pathname: '/login/mfa/choose',
+            // query: { data: encodeData(response?.data) },
+          });
+        }
+      } catch (error) {
+        handleErrorMessage(error);
+      }
+    } else {
+      e.target.classList.add('was-validated');
+    }
+  };
+
+
   return (
     <>
       <div
@@ -58,10 +120,9 @@ export default function Signup() {
               </h5>
               <form
                 id="login-form"
-                method="POST"
-                action="#"
                 className="needs-validation"
-                noValidate=""
+                noValidate
+                onSubmit={handleSubmit}
               >
                 <input
                   type="hidden"
@@ -84,7 +145,8 @@ export default function Signup() {
                   name="email"
                   placeholder="Enter your email address"
                   type="email"
-                  required=""
+                  required
+                  onChange={handleInputChange}
                 />
                 <label htmlFor="password" className="form-label text-start">
                   Password
@@ -95,7 +157,8 @@ export default function Signup() {
                   name="password"
                   placeholder="Enter your password"
                   type="password"
-                  required=""
+                  required
+                  onChange={handleInputChange}
                 />
                 <div className="form-check my-4">
                   <input
@@ -103,7 +166,7 @@ export default function Signup() {
                     type="checkbox"
                     id="over_eighteen"
                     name="over_eighteen"
-                    required=""
+                    required
                   />
                   <label className="form-check-label" htmlFor="over18">
                     I am over the age of 18
@@ -115,7 +178,7 @@ export default function Signup() {
                     type="checkbox"
                     id="terms_of_use"
                     name="terms_of_use"
-                    required=""
+                    required
                   />
                   <label className="form-check-label" htmlFor="over18">
                     I have read and acknowledged the
@@ -138,6 +201,7 @@ export default function Signup() {
                     type="checkbox"
                     id="marketing_authorization"
                     name="marketing_authorization"
+                    required
                   />
                   <label className="form-check-label" htmlFor="over18">
                     I consent to receive{' '}
@@ -155,13 +219,7 @@ export default function Signup() {
                   </label>
                 </div>
                 <button
-                  onClick={() => {
-                    router.push({
-                      pathname: '/login/mfa/confirm',
-                      query: { page: encodeData('signup') },
-                    });
-                  }}
-                  type="button"
+                  type="submit"
                   className="btn btn-primary rounded-pill my-3 w-100"
                 >
                   Continue
@@ -182,10 +240,8 @@ export default function Signup() {
       <div className="modal" tabIndex={-1} role="dialog" id="modalTerms">
         <div className="modal-dialog modal-lg" role="document">
           <div className="modal-content">
-            <div className="modal-body">
-              {'{'}
-              {'{'} sanitizeHTML .Consents.TermsOfUse {'}'}
-              {'}'}
+            <div className="modal-body" >
+              <div dangerouslySetInnerHTML={{ __html: consents?.terms_of_use }} />
             </div>
             <div className="modal-footer justify-content-center">
               <button
@@ -207,10 +263,8 @@ export default function Signup() {
       >
         <div className="modal-dialog modal-lg" role="document">
           <div className="modal-content modal-lg">
-            <div className="modal-body">
-              {'{'}
-              {'{'} sanitizeHTML .Consents.PrivacyPolicy {'}'}
-              {'}'}
+            <div className="modal-body"  >
+              <div dangerouslySetInnerHTML={{ __html: consents?.privacy_policy }} />
             </div>
             <div className="modal-footer justify-content-center">
               <button
@@ -228,9 +282,7 @@ export default function Signup() {
         <div className="modal-dialog modal-lg" role="document">
           <div className="modal-content modal-lg">
             <div className="modal-body">
-              {'{'}
-              {'{'} sanitizeHTML .Consents.NoticeOfPrivacyPractices {'}'}
-              {'}'}
+              <div dangerouslySetInnerHTML={{ __html: consents?.notice_of_privacy_practices }} />
             </div>
             <div className="modal-footer justify-content-center">
               <button
@@ -252,10 +304,8 @@ export default function Signup() {
       >
         <div className="modal-dialog modal-lg" role="document">
           <div className="modal-content modal-lg">
-            <div className="modal-body">
-              {'{'}
-              {'{'} sanitizeHTML .Consents.MarketingAuth {'}'}
-              {'}'}
+            <div className="modal-body" >
+              <div dangerouslySetInnerHTML={{ __html: consents?.marketing_authorization }} />
             </div>
             <div className="modal-footer justify-content-center">
               <button
