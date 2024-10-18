@@ -132,7 +132,7 @@ export const setAuthorization = () => {
     process.browser && localStorage.getItem('accessToken')
       ? localStorage.getItem('accessToken')
       : '';
-  axios.defaults.headers.common[`Version`] = '1.0.0';
+  // axios.defaults.headers.common[`Version`] = '1.0.0';
   axios.defaults.headers.common['Content-Type'] = 'application/json';
 };
 setAuthorization();

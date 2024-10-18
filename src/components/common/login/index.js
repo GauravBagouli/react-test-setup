@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import API from '@/helpers/api';
 import { handleErrorMessage } from '@/utils/commonFunctions';
 import { useRouter } from 'next/router';
+import { encodeData } from '@/helpers/auth';
 
 const Login = ({ branding, csrfToken }) => {
   const router = useRouter();
@@ -12,20 +13,17 @@ const Login = ({ branding, csrfToken }) => {
       Password: formData.Password,
     };
     e.preventDefault();
-    // const response = await fetch("http://localhost:3000/login", {
-    //     method: "POST",
-    //     headers: {
-    //         "Content-Type": "application/json",
-    //     },
-    //     body: JSON.stringify(payload),
-    // });
-    // console.log("response", response)
-    API.apiPost('userLogin', payload, {
-      headers: { 'Content-Type': 'application/json' },
-    })
-      .then(({ data }) => {
-        if (data?.success) {
-          router.push('/login/mfa/choose');
+    API.apiPost('userLogin', payload)
+      .then((response) => {
+        if (
+          response?.data &&
+          response?.status === 200 &&
+          response?.statusText === 'OK'
+        ) {
+          router.push({
+            pathname: '/login/mfa/choose',
+            query: { data: encodeData(response?.data) },
+          });
         }
       })
       .catch((error) => {
