@@ -6,5 +6,6 @@ const apiKeys = {
 
   // signup api
   userSignup: 'signup',
+  verifyId: 'signup/verify-id/invite',
 };
 export default apiKeys;

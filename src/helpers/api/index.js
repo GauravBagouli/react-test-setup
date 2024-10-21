@@ -126,13 +126,7 @@ axios.interceptors.response.use(
 );
 
 export const setAuthorization = () => {
-  // to consider major cookies security
   axios.defaults.withCredentials = false;
-  axios.defaults.headers.common.authorization =
-    process.browser && localStorage.getItem('accessToken')
-      ? localStorage.getItem('accessToken')
-      : '';
-  // axios.defaults.headers.common[`Version`] = '1.0.0';
   axios.defaults.headers.common['Content-Type'] = 'application/json';
 };
 setAuthorization();

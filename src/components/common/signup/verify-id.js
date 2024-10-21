@@ -1,12 +1,28 @@
+import API from '@/helpers/api';
+import { handleErrorMessage } from '@/utils/commonFunctions';
 import { useRouter } from 'next/router';
-import React from 'react';
+import React, { useState } from 'react';
 
 export default function VerifyId() {
   const router = useRouter();
+  const [phone, setPhone] = useState(null);
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    router.push('/signup/verify-id/confirm');
+    API.apiPost('verifyId', { phone: phone })
+      .then((response) => {
+        console.log('response', response);
+        if (
+          response?.data &&
+          response?.status === 200 &&
+          response?.statusText === 'OK'
+        ) {
+          // router.push('/signup/verify-id/confirm');
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        handleErrorMessage(error);
+      });
   };
   return (
     <div className="row justify-content-center" style={{ minHeight: '100vh' }}>
@@ -99,6 +115,9 @@ export default function VerifyId() {
                 className="form-control"
                 id="phone"
                 aria-describedby="phoneHelp"
+                name="phone"
+                required
+                onChange={(e) => setPhone(e.target.value)}
               />
               <div id="phoneHelp" className="form-text">
                 (###)###-###
