@@ -1,4 +1,4 @@
-import API from '@/helpers/api';
+import API, { setAuthorization } from '@/helpers/api';
 import { encodeData } from '@/helpers/auth';
 import { handleErrorMessage } from '@/utils/commonFunctions';
 import { useRouter } from 'next/router';
@@ -20,32 +20,33 @@ export default function Signup() {
     gate_pass: '46a52b',
   });
 
-  const fetchData = () => {
-    API.apiGet('userSignup', '?code=46a52b')
-      .then((response) => {
-        if (
-          response?.data &&
-          response?.status === 200 &&
-          response?.statusText === 'OK'
-        ) {
-          setConsent(response.data);
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-        handleErrorMessage(error);
-      });
-  };
+  // const fetchData = () => {
+  //   API.apiGet('userSignup', '?code=46a52b')
+  //     .then((response) => {
+  //       if (
+  //         response?.data &&
+  //         response?.status === 200 &&
+  //         response?.statusText === 'OK'
+  //       ) {
+  //         setConsent(response.data);
+  //       }
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //       handleErrorMessage(error);
+  //     });
+  // };
 
-  useEffect(() => {
-    fetchData();
-  }, []);
+  // useEffect(() => {
+  //   fetchData();
+  // }, []);
 
   const handleInputChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = (e) => {
+    // setAuthorization();
     e.preventDefault();
     if (e.target.checkValidity()) {
       let payload = {
