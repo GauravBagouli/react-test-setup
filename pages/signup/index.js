@@ -1,9 +1,19 @@
-import React from 'react'
+import React, { useEffect } from 'react';
 import dynamic from 'next/dynamic';
-const SignupComponent = dynamic(() => import('@/components/common/signup/index'),{ ssr: false });
+import { useRouter } from 'next/router';
+const SignupComponent = dynamic(
+  () => import('@/components/common/signup/index'),
+  { ssr: false },
+);
 
 export default function Signup() {
-  return (
-     <SignupComponent/>
-  )
+  const router = useRouter();
+  const { query } = router;
+
+  useEffect(() => {
+    if (query?.access_code && query?.access_code != '46a52b') {
+      router.push('/login');
+    }
+  }, [query]);
+  return <SignupComponent />;
 }
