@@ -1,7 +1,8 @@
-/* eslint-disable */
 import axios from './instance';
 import * as auth from '../auth';
 import apiKeys from './apiKeys';
+
+let controller = new AbortController();
 
 const getUrlByKey = (key) => {
   return apiKeys[key];
@@ -21,11 +22,13 @@ class API {
     if (typeof args === 'string') {
       return axios.get(getUrlByKey(key) + args, {
         withCredentials: true,
+        signal: controller.signal,
       });
     }
     return axios.get(getUrlByKey(key), {
       data: args,
       withCredentials: true,
+      signal: controller.signal,
     });
   };
 
@@ -33,57 +36,81 @@ class API {
     if (typeof args === 'string') {
       return axios.get(getUrlByKey(key) + args, {
         withCredentials: true,
+        signal: controller.signal,
       });
     }
     return axios.get(`${getUrlByKey(key)}/query?${query}`, {
       data: args,
       withCredentials: true,
+      signal: controller.signal,
     });
   };
 
   static apiPost = async (key, args, headers) => {
-    return axios.post(getUrlByKey(key), args, headers);
+    return axios.post(getUrlByKey(key), args, {
+      ...headers,
+      signal: controller.signal,
+    });
   };
 
   static apiPostUrl = async (key, dynamicUrl, args) => {
-    return axios.post(getUrlByKey(key) + dynamicUrl, args);
+    return axios.post(getUrlByKey(key) + dynamicUrl, args, {
+      signal: controller.signal,
+    });
   };
 
   static apiPut = async (key, args) => {
     if (typeof args === 'string') {
       return axios.put(getUrlByKey(key) + args, {
         withCredentials: true,
+        signal: controller.signal,
       });
     }
     return axios.put(getUrlByKey(key), args, {
       withCredentials: true,
+      signal: controller.signal,
     });
   };
 
   static apiPutUrl = async (key, dynamicUrl, args) => {
-    return axios.put(getUrlByKey(key) + dynamicUrl, args);
+    return axios.put(getUrlByKey(key) + dynamicUrl, args, {
+      signal: controller.signal,
+    });
   };
 
   static apiUploadFile = async (key, args, configs) => {
-    return axios.post(getUrlByKey(key), args, configs);
+    return axios.post(getUrlByKey(key), args, {
+      ...configs,
+      signal: controller.signal,
+    });
   };
 
   static apiUpdateFile = async (key, dynamicUrl, args, configs) => {
-    return axios.put(getUrlByKey(key) + dynamicUrl, args, configs);
+    return axios.put(getUrlByKey(key) + dynamicUrl, args, {
+      ...configs,
+      signal: controller.signal,
+    });
   };
 
   static apiDelete = async (key, args) => {
     return axios.delete(getUrlByKey(key), {
       data: args,
+      signal: controller.signal,
     });
   };
 
   static apiDeleteUrl = async (key, dynamicUrl, args) => {
-    return axios.delete(getUrlByKey(key) + dynamicUrl, { data: args });
+    return axios.delete(getUrlByKey(key) + dynamicUrl, {
+      data: args,
+      signal: controller.signal,
+    });
   };
 
   static apiDeletePost = async (key, args) => {
-    return axios.delete(getUrlByKey(key), { data: args });
+    return axios.delete(getUrlByKey(key), {
+      data: args,
+      signal: controller.signal,
+    });
   };
 
   static setCSRF = (csrfToken, sessionid) => {
@@ -95,7 +122,10 @@ class API {
   };
 
   static apiDownloadFile = async (key, args, configs) => {
-    return axios.get(`${getUrlByKey(key)}/${args}`, configs);
+    return axios.get(`${getUrlByKey(key)}/${args}`, {
+      ...configs,
+      signal: controller.signal,
+    });
   };
 }
 
@@ -104,7 +134,7 @@ export default API;
 // # interceptors
 axios.interceptors.request.use(
   (configs) => {
-    // const loading = true;
+    configs.signal = controller.signal;
     return configs;
   },
   (error) => {
@@ -114,11 +144,11 @@ axios.interceptors.request.use(
 
 axios.interceptors.response.use(
   (response) => {
-    // const loading = false;
     return response;
   },
   (error) => {
     if (error.response && error.response.status === 401) {
+      controller.abort();
       auth.logout();
     }
     return Promise.reject(error);
@@ -127,6 +157,6 @@ axios.interceptors.response.use(
 
 export const setAuthorization = () => {
   axios.defaults.withCredentials = true;
-  axios.defaults.headers.common['Content-Type'] = 'application/json';
+  // axios.defaults.headers.common['Content-Type'] = 'application/json';
 };
 setAuthorization();

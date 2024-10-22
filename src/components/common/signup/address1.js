@@ -33,25 +33,23 @@ const AddressForm = ({ branding }) => {
 
   const handleSubmitAddress = (e) => {
     e.preventDefault();
-    let formData = new FormData();
     let allAddresses = [...previousAddresses, primaryAdress];
-    debugger;
+    const formData = new URLSearchParams();
     allAddresses.forEach((address, index) => {
       formData.append(`addresses[${index}][Address]`, address.address);
-      formData.append(`addresses[${index}][Address1]`, address.address1);
-      formData.append(`addresses[${index}][Address2]`, address.address2);
       formData.append(
         `addresses[${index}][ApartmentNumber]`,
         address.apartmentNumber,
       );
       formData.append(`addresses[${index}][City]`, address.city);
-      formData.append(`addresses[${index}][State]`, 'TN'); // Assuming 'TN' is the fixed value you want
+      formData.append(`addresses[${index}][State]`, 'TN');
       formData.append(`addresses[${index}][Zip]`, address.zip);
     });
-    // formData.append('addresses', JSON.stringify(allAddresses));
-    API.apiPost('addAddresses', formData)
+    const headers = {
+      'Content-Type': 'application/x-www-form-urlencoded',
+    };
+    API.apiPost('addAddresses', formData.toString(), headers)
       .then((response) => {
-        response;
         if (
           response?.data &&
           response?.status === 200 &&
