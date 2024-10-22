@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import API from '@/helpers/api';
 import { handleErrorMessage } from '@/utils/commonFunctions';
@@ -6,6 +6,10 @@ import { handleErrorMessage } from '@/utils/commonFunctions';
 const MFAConfirm = ({ page, mfaToken, oobCode, csrfToken, brandingLogo }) => {
   const router = useRouter();
   const [code, setCode] = useState('');
+
+  useEffect(() => {
+    document.cookie = `pluto_dashboard=${mfaToken}; path=/; secure; samesite=strict`;
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();

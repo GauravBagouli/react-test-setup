@@ -1,18 +1,57 @@
+import API from '@/helpers/api';
+import { handleErrorMessage } from '@/utils/commonFunctions';
 import { useRouter } from 'next/router';
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 
 const VerifyIDConfirm = ({ userInfo }) => {
-  const [firstName, setFirstName] = useState(userInfo?.FirstName || '');
-  const [lastName, setLastName] = useState(userInfo?.LastName || '');
-  const [dob, setDob] = useState(userInfo?.DateOfBirth || '');
-  const [gender, setGender] = useState('');
-  
-  const router = useRouter()
+  const [formData, setFormData] = useState({
+    first_name: userInfo?.FirstName || '',
+    last_name: userInfo?.LastName || '',
+    date_of_birth: '',
+    gender: '',
+  });
+
+  const router = useRouter();
+  const [isPickerOpen, setPickerOpen] = useState(false);
+  const dateInputRef = useRef(null);
+
+  const handleDateClick = () => {
+    if (!isPickerOpen) {
+      dateInputRef.current.showPicker();
+      setPickerOpen(true);
+    } else {
+      dateInputRef.current.blur();
+      setPickerOpen(false);
+    }
+  };
+
+  const handleDateBlur = () => {
+    setPickerOpen(false);
+  };
+
   const handleSubmit = (e) => {
-      e.preventDefault();
-      
-      router.push("/signup/hipaa")
+    e.preventDefault();
+    let payload = {
+      first_name: formData?.first_name,
+      last_name: formData?.last_name,
+      date_of_birth: formData?.date_of_birth,
+      gender: formData?.gender,
     };
+    API.apiPost('verfiyIdConfirm', payload)
+      .then((response) => {
+        if (
+          response?.data &&
+          response?.status === 200 &&
+          response?.statusText === 'OK'
+        ) {
+          router.push('/signup/hipaa');
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        handleErrorMessage(error);
+      });
+  };
 
   return (
     <div className="row justify-content-center" style={{ minHeight: '102vh' }}>
@@ -20,21 +59,30 @@ const VerifyIDConfirm = ({ userInfo }) => {
       <div className="col-4 bg-blue d-none d-md-flex align-items-center justify-content-center min-vh-100">
         <ul className="text-white">
           <li className="list-group-item d-flex mb-4">
-            <i className="d-block fa fa-circle-check pe-3 fs-4" aria-hidden="true"></i>
+            <i
+              className="d-block fa fa-circle-check pe-3 fs-4"
+              aria-hidden="true"
+            ></i>
             <div>
               <p className="m-0">Unlock care recommendations</p>
               <small>Discover better health</small>
             </div>
           </li>
           <li className="list-group-item d-flex mb-4">
-            <i className="d-block fa fa-circle-check pe-3 fs-4" aria-hidden="true"></i>
+            <i
+              className="d-block fa fa-circle-check pe-3 fs-4"
+              aria-hidden="true"
+            ></i>
             <div>
               <p className="m-0">Understand your health</p>
               <small>Get personalized plans</small>
             </div>
           </li>
           <li className="list-group-item d-flex mb-4">
-            <i className="d-block fa fa-circle-check pe-3 fs-4" aria-hidden="true"></i>
+            <i
+              className="d-block fa fa-circle-check pe-3 fs-4"
+              aria-hidden="true"
+            ></i>
             <div>
               <p className="m-0">Access to care</p>
               <small>Access to free or low-cost treatment</small>
@@ -45,7 +93,11 @@ const VerifyIDConfirm = ({ userInfo }) => {
 
       {/* Right Panel */}
       <div className="row align-items-center justify-content-center flex-column col-md-8 col-12 pe-md-4 pe-0">
-        <div id="main-alert" className="alert alert-danger" style={{ display: 'none' }}></div>
+        <div
+          id="main-alert"
+          className="alert alert-danger"
+          style={{ display: 'none' }}
+        ></div>
 
         <div
           className="logo login-logo mx-auto"
@@ -60,7 +112,10 @@ const VerifyIDConfirm = ({ userInfo }) => {
         <div className="w-100 w-md-75 mx-auto px-5 px-md-2">
           <h6 className="fw-bold ps-0 ms-0">Step 1 of 3</h6>
           <div className="row justify-content-center">
-            <div className="col mx-1 bg-blue" style={{ height: '0.2rem' }}></div>
+            <div
+              className="col mx-1 bg-blue"
+              style={{ height: '0.2rem' }}
+            ></div>
             <div className="col mx-1 bg-blue-subtle"></div>
             <div className="col mx-1 bg-blue-subtle"></div>
           </div>
@@ -71,59 +126,95 @@ const VerifyIDConfirm = ({ userInfo }) => {
           </div>
 
           <h2 className="mt-4 fw-semibold">Confirm your information</h2>
-          <h6 className="mb-5">Ensure the information collected in identity verification is correct.</h6>
+          <h6 className="mb-5">
+            Ensure the information collected in identity verification is
+            correct.
+          </h6>
 
-          <form method="post" action="/signup/verify-id/confirm" onSubmit={handleSubmit}>
+          <form
+            method="post"
+            action="/signup/verify-id/confirm"
+            onSubmit={handleSubmit}
+          >
             <div className="mb-3">
-              <label htmlFor="first_name" className="form-label">Legal First Name</label>
+              <label htmlFor="first_name" className="form-label">
+                Legal First Name
+              </label>
               <input
                 type="text"
                 className="form-control"
                 name="first_name"
                 id="first_name"
-                value={firstName}
-                onChange={(e) => setFirstName(e.target.value)}
+                value={formData?.first_name}
+                onChange={(e) =>
+                  setFormData({ ...formData, [e.target.name]: e.target.value })
+                }
                 required
               />
             </div>
 
             <div className="mb-3">
-              <label htmlFor="last_name" className="form-label">Legal Last Name</label>
+              <label htmlFor="last_name" className="form-label">
+                Legal Last Name
+              </label>
               <input
                 type="text"
                 className="form-control"
                 name="last_name"
                 id="last_name"
-                value={lastName}
-                onChange={(e) => setLastName(e.target.value)}
+                value={formData?.last_name}
+                onChange={(e) =>
+                  setFormData({ ...formData, [e.target.name]: e.target.value })
+                }
                 required
               />
             </div>
 
             <div className="mb-3">
-              <label htmlFor="dob" className="form-label">Date of Birth</label>
+              <label htmlFor="dob" className="form-label">
+                Date of Birth
+              </label>
               <input
                 type="date"
                 className="form-control"
                 name="date_of_birth"
                 id="date_of_birth"
-                value={dob}
-                onChange={(e) => setDob(e.target.value)}
+                value={formData?.date_of_birth}
+                onChange={(e) =>
+                  setFormData({ ...formData, [e.target.name]: e.target.value })
+                }
+                onClick={handleDateClick}
+                onBlur={handleDateBlur}
+                ref={dateInputRef}
                 required
               />
+              {/* <DatePicker
+                selected={formData?.date_of_birth}
+                onChange={(date) => setFormData({ ...formData, date_of_birth: date })}
+                dateFormat="dd-MM-yyyy"
+                className="form-control"
+                placeholderText="Select your date of birth"
+                required
+              /> */}
             </div>
 
             <div className="mb-3">
-              <label htmlFor="gender" className="form-label">Born biologically as</label>
+              <label htmlFor="gender" className="form-label">
+                Born biologically as
+              </label>
               <select
                 name="gender"
                 id="gender"
                 className="form-select"
-                value={gender}
-                onChange={(e) => setGender(e.target.value)}
+                value={formData?.gender}
+                onChange={(e) =>
+                  setFormData({ ...formData, [e.target.name]: e.target.value })
+                }
                 required
               >
-                <option value="" disabled>Please Select</option>
+                <option value="" disabled>
+                  Please Select
+                </option>
                 <option value="m">Male</option>
                 <option value="f">Female</option>
                 <option value="o">Other</option>
@@ -131,7 +222,10 @@ const VerifyIDConfirm = ({ userInfo }) => {
             </div>
 
             <div className="d-flex my-4">
-              <button type="submit" className="btn btn-primary rounded-pill w-100">
+              <button
+                type="submit"
+                className="btn btn-primary rounded-pill w-100"
+              >
                 Confirm and Continue
               </button>
             </div>

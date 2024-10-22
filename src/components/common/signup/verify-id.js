@@ -1,7 +1,9 @@
 import API from '@/helpers/api';
+import { encodeData } from '@/helpers/auth';
 import { handleErrorMessage } from '@/utils/commonFunctions';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
+import toast from 'react-hot-toast';
 
 export default function VerifyId() {
   const router = useRouter();
@@ -16,6 +18,7 @@ export default function VerifyId() {
           response?.status === 200 &&
           response?.statusText === 'OK'
         ) {
+          handleVerfiyJobID(response.data);
           // router.push('/signup/verify-id/confirm');
         }
       })
@@ -24,6 +27,32 @@ export default function VerifyId() {
         handleErrorMessage(error);
       });
   };
+
+  const handleVerfiyJobID = (data) => {
+    if (data?.jobId) {
+      const dynamicUrl = `/${data.jobId}`;
+      API.apiGet('verifyId', dynamicUrl)
+        .then((response) => {
+          if (
+            response?.data &&
+            response?.status === 200 &&
+            response?.statusText === 'OK'
+          ) {
+            router.push({
+              pathname: '/signup/verify-id/confirm',
+              query: { data: encodeData(response.data) },
+            });
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+          handleErrorMessage(error);
+        });
+    } else {
+      toast.error('Failed to verify phone. Please try again later');
+    }
+  };
+
   return (
     <div className="row justify-content-center" style={{ minHeight: '100vh' }}>
       <div className="col-4 bg-blue d-none d-md-flex align-items-center justify-content-center min-vh-100">
