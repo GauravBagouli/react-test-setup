@@ -1,7 +1,7 @@
 import React from 'react';
 import dynamic from 'next/dynamic';
 const AddressComponent = dynamic(
-  () => import('@/components/common/signup/address1'),
+  () => import('@/components/common/signup/address'),
   { ssr: false },
 );
 
