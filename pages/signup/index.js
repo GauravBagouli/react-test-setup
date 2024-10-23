@@ -10,10 +10,5 @@ export default function Signup() {
   const router = useRouter();
   const { query } = router;
 
-  useEffect(() => {
-    if (query?.access_code && query?.access_code != '46a52b') {
-      router.push('/login');
-    }
-  }, [query]);
   return <SignupComponent access_code={query?.access_code} />;
 }
