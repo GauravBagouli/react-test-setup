@@ -1,14 +1,15 @@
 const apiKeys = {
   // login api
-  userLogin: '/login',
+  userLogin: 'login',
   mfaChoose: 'mfa/choose',
   mfaConfirm: 'mfa/confirm',
 
   // signup api
   userSignup: 'signup',
-  verifyId: 'signup/verify-id/invite',
-  verfiyIdConfirm: 'signup/verify-id/confirm',
-  hippaAgree: 'signup/hipaa',
-  addAddresses: 'signup/addresses',
+  verifyId: 'verify-id/invite',
+  verifyIdStatus: 'verify-id/invite/status',
+  verfiyIdConfirm: 'verify-id/confirm',
+  hippaAgree: 'hipaa',
+  addAddresses: 'addresses',
 };
 export default apiKeys;

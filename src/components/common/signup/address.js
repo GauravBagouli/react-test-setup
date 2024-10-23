@@ -57,9 +57,9 @@ const AddressForm = ({ branding }) => {
     API.apiPost('addAddresses', formData.toString(), headers)
       .then((response) => {
         if (
-          response?.data &&
-          response?.status === 200 &&
-          response?.statusText === 'OK'
+          response?.data?.content &&
+          response?.data?.status_code === 200 &&
+          response?.data?.status_text === 'OK'
         ) {
           router.push('/home');
         }

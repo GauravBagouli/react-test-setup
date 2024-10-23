@@ -150,7 +150,7 @@ axios.interceptors.response.use(
 );
 
 export const setAuthorization = () => {
-  axios.defaults.withCredentials = false;
+  axios.defaults.withCredentials = true;
   // axios.defaults.headers.common['Content-Type'] = 'application/json';
 };
-// setAuthorization();
+setAuthorization();

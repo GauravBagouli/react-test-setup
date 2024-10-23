@@ -15,5 +15,5 @@ export default function Signup() {
       router.push('/login');
     }
   }, [query]);
-  return <SignupComponent />;
+  return <SignupComponent access_code={query?.access_code} />;
 }
