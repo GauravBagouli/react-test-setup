@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import API from '@/helpers/api';
 import { handleErrorMessage } from '@/utils/commonFunctions';
+import { storeAccessToken } from '@/helpers/auth';
 
 const MFAConfirm = ({ page, mfaToken, oobCode, csrfToken, brandingLogo }) => {
   const router = useRouter();
@@ -25,6 +26,7 @@ const MFAConfirm = ({ page, mfaToken, oobCode, csrfToken, brandingLogo }) => {
           response?.data?.status_code === 200 &&
           response?.data?.status_text === 'OK'
         ) {
+          storeAccessToken(response?.data?.content?.access_token);
           if (page === 'signup') {
             router.push('/signup/verify-id');
           } else {

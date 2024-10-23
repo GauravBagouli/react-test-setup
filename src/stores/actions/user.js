@@ -10,7 +10,7 @@ function errorRequest(err, dispatch) {
   data = data || err;
   dispatch({
     type: 'AUTH_FAILURE',
-    payload: data
+    payload: data,
   });
 }
 
@@ -22,7 +22,6 @@ export function login(payload) {
       API.apiPost('userLogin', { payload: auth.encodeData(payload) })
         .then(({ data }) => {
           if (data && data.token) {
-            auth.login(data.token);
             dispatch({ type: `${type}_SUCCESS`, payload: data });
             setTimeout(() => {
               dispatch(getUserData(data.token));

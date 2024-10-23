@@ -2,9 +2,8 @@ import { setAuthorization } from './api';
 import { jwtDecode } from 'jwt-decode';
 import { Base64 } from 'js-base64';
 
-export function login(token, appId = '') {
+export function storeAccessToken(token) {
   localStorage.setItem('accessToken', token);
-  localStorage.setItem('appId', appId);
   setAuthorization();
   return true;
 }
