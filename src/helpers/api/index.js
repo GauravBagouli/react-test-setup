@@ -151,6 +151,9 @@ axios.interceptors.response.use(
 
 export const setAuthorization = () => {
   axios.defaults.withCredentials = true;
-  // axios.defaults.headers.common['Content-Type'] = 'application/json';
+  axios.defaults.headers.common.authorization =
+    process.browser && localStorage.getItem('access_token')
+      ? localStorage.getItem('access_token')
+      : '';
 };
 setAuthorization();
