@@ -21,13 +21,11 @@ class API {
   static apiGet = async (key, args) => {
     if (typeof args === 'string') {
       return axios.get(getUrlByKey(key) + args, {
-        withCredentials: true,
         signal: controller.signal,
       });
     }
     return axios.get(getUrlByKey(key), {
       data: args,
-      withCredentials: true,
       signal: controller.signal,
     });
   };
@@ -35,13 +33,11 @@ class API {
   static apiGetByKey = async (key, args, query) => {
     if (typeof args === 'string') {
       return axios.get(getUrlByKey(key) + args, {
-        withCredentials: true,
         signal: controller.signal,
       });
     }
     return axios.get(`${getUrlByKey(key)}/query?${query}`, {
       data: args,
-      withCredentials: true,
       signal: controller.signal,
     });
   };
@@ -62,12 +58,10 @@ class API {
   static apiPut = async (key, args) => {
     if (typeof args === 'string') {
       return axios.put(getUrlByKey(key) + args, {
-        withCredentials: true,
         signal: controller.signal,
       });
     }
     return axios.put(getUrlByKey(key), args, {
-      withCredentials: true,
       signal: controller.signal,
     });
   };
@@ -156,7 +150,7 @@ axios.interceptors.response.use(
 );
 
 export const setAuthorization = () => {
-  axios.defaults.withCredentials = true;
+  axios.defaults.withCredentials = false;
   // axios.defaults.headers.common['Content-Type'] = 'application/json';
 };
-setAuthorization();
+// setAuthorization();

@@ -1,8 +1,8 @@
 const apiKeys = {
   // login api
-  userLogin: 'login',
-  mfaChoose: 'login/mfa/choose',
-  mfaConfirm: 'login/mfa/confirm',
+  userLogin: '/login',
+  mfaChoose: 'mfa/choose',
+  mfaConfirm: 'mfa/confirm',
 
   // signup api
   userSignup: 'signup',
