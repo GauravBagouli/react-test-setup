@@ -47,7 +47,6 @@ module.exports = {
     'rc-util',
   ],
   experimental: {
-    esmExternals: false,
     scrollRestoration: true,
     turbo: {
       resolveAlias: {

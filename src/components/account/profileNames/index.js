@@ -1,93 +1,32 @@
 import Link from 'next/link';
-import { useRouter } from 'next/router';
+import { useState, useRef, useEffect } from 'react';
 import SettingsSideNav from '../SettingsSideNav';
-// import '../../styles/profile.css';
+import DetailsEdit from '../detailsEdit';
 
 const ProfileNames = () => {
-  const router = useRouter();
+  const [profileData, setProfileData] = useState({
+    legal_name: "Celeste Yang",
+    what_should_we_call_you: "Celeste Yang",
+    married_name: "Celeste Yang",
+    maiden_name: "Celeste Yang",
+  });
 
-  const handleEditLink = (section) => `/account/profile/${section}`;
-  const EditButtons = () => (
-    <>
-      <button className="rounded-circle p-1 text-center text-gray bg-secondary-subtle fs-6 d-inline-block border-0" style={{ width: '2.25rem' }}>
-        <i className="fa-solid fa-pen"></i>
-      </button>
-      <button className="rounded-circle p-1 text-center text-gray bg-secondary-subtle fs-6 d-inline-block border-0" style={{ width: '2.25rem' }}>
-        <i className="fa-solid fa-trash"></i>
-      </button>
-    </>
-  );
+  // Array containing the labels, field names, and editable status
+  const nameFields = [
+    { label: "Legal Name", field: "legal_name", isEditable: false },
+    { label: "What should we call you?", field: "what_should_we_call_you", isEditable: true },
+    { label: "Married Name", field: "married_name", isEditable: true },
+    { label: "Maiden Name", field: "maiden_name", isEditable: true },
+  ];
 
   return (
-    <div className="row justify-content-center p-4 p-sm-4 ps-lg-8 mt-6 mt-lg-8">
-      <div className="col-lg-3">
-        <SettingsSideNav />
-      </div>
-      <div className="col-12 col-lg-9 col-xl-8 col-md-6 mx-auto">
-        {/* <h2 className="mt-4 page-title mb-5">Profile</h2> */}
-        <div id="names" className="profile-drilldown">
-          <Link href="/account/profile" passHref legacyBehavior>
-            <a className='nav-link d-flex gap-2 mb-4' style={{ width: 'fit-content' }}>
-              <i id="nav-chevron" className="fa-solid fa-chevron-left fs-4 d-md-flex d-lg-flex d-xl-flex " />
-              Profile
-            </a>
-          </Link>
-    
-          <div>Edit profile</div>
-          <h2 className="page-title">Names</h2>
-          <p>Manage your settings below.</p>
-
-          {/* Legal Name */}
-          <div className="d-flex justify-content-between">
-            <div>
-              <h4>Legal Name</h4>
-              <h5>Celeste Yang</h5>
-            </div>
-          </div>
-
-          <hr />
-
-          {/* Preferred Name */}
-          <div className="d-flex justify-content-between align-items-center">
-            <div>
-              <h4>What should we call you?</h4>
-              <h5>Celeste Yang</h5>
-            </div>
-            <div>
-              <EditButtons />
-            </div>
-          </div>
-
-          <hr />
-
-          {/* Married Name */}
-          <div className="d-flex justify-content-between align-items-center">
-            <div>
-              <h4>Married Name</h4>
-              <h5>Celeste Yang</h5>
-            </div>
-            <div>
-              <EditButtons />
-            </div>
-          </div>
-
-          <hr />
-
-          {/* Maiden Name */}
-          <div className="d-flex justify-content-between align-items-center">
-            <div>
-              <h4>Maiden Name</h4>
-              <h5>Celeste Yang</h5>
-            </div>
-            <div>
-              <EditButtons />
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <DetailsEdit
+      nameFields={nameFields}
+      profileData={profileData}
+      setProfileData={setProfileData}
+      title="Names"
+    />
   );
 };
 
 export default ProfileNames;
-
