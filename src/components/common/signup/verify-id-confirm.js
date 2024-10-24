@@ -5,8 +5,8 @@ import React, { useRef, useState } from 'react';
 
 const VerifyIDConfirm = ({ userInfo }) => {
   const [formData, setFormData] = useState({
-    first_name: userInfo?.FirstName || '',
-    last_name: userInfo?.LastName || '',
+    first_name: userInfo?.firstName || '',
+    last_name: userInfo?.lastName || '',
     date_of_birth: '',
     gender: '',
   });
@@ -40,9 +40,9 @@ const VerifyIDConfirm = ({ userInfo }) => {
     API.apiPost('verfiyIdConfirm', payload)
       .then((response) => {
         if (
-          response?.data &&
-          response?.status === 200 &&
-          response?.statusText === 'OK'
+          response?.data?.content &&
+          response?.data?.status_code === 200 &&
+          response?.data?.status_text === 'OK'
         ) {
           router.push('/signup/hipaa');
         }

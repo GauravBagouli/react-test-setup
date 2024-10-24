@@ -14,11 +14,11 @@ export default function VerifyId() {
       .then((response) => {
         console.log('response', response);
         if (
-          response?.data &&
-          response?.status === 200 &&
-          response?.statusText === 'OK'
+          response?.data?.content &&
+          response?.data?.status_code === 200 &&
+          response?.data?.status_text === 'OK'
         ) {
-          handleVerfiyJobID(response.data);
+          handleVerfiyJobID(response?.data?.content);
           // router.push('/signup/verify-id/confirm');
         }
       })
@@ -30,17 +30,16 @@ export default function VerifyId() {
 
   const handleVerfiyJobID = (data) => {
     if (data?.jobId) {
-      const dynamicUrl = `/${data.jobId}`;
-      API.apiGet('verifyId', dynamicUrl)
+      API.apiGet('verifyIdStatus', `?job_id=${data?.jobId}`)
         .then((response) => {
           if (
-            response?.data &&
-            response?.status === 200 &&
-            response?.statusText === 'OK'
+            response?.data?.content &&
+            response?.data?.status_code === 200 &&
+            response?.data?.status_text === 'OK'
           ) {
             router.push({
               pathname: '/signup/verify-id/confirm',
-              query: { data: encodeData(response.data) },
+              query: { data: encodeData(response?.data?.content) },
             });
           }
         })

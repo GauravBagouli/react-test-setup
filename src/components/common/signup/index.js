@@ -11,7 +11,7 @@ let initalData = {
   marketing_authorization: '',
 };
 
-export default function Signup() {
+export default function Signup({ access_code }) {
   const router = useRouter();
   const [consents, setConsent] = useState(initalData);
   const [formData, setFormData] = useState({
@@ -19,6 +19,12 @@ export default function Signup() {
     password: '',
     gate_pass: '46a52b',
   });
+
+  useEffect(() => {
+    if (access_code != '46a52b') {
+      router.push('/login');
+    }
+  }, [access_code]);
 
   // const fetchData = () => {
   //   API.apiGet('userSignup', '?code=46a52b')
@@ -57,14 +63,14 @@ export default function Signup() {
       API.apiPost('userSignup', payload)
         .then((response) => {
           let queryData = {
-            mfa_token: response?.data?.token,
-            oob_code: response?.data?.oob_code,
+            mfa_token: response?.data?.content?.mfa_token,
+            oob_code: response?.data?.content?.oob_code,
             page: 'signup',
           };
           if (
-            response?.data &&
-            response?.status === 200 &&
-            response?.statusText === 'OK'
+            response?.data?.content &&
+            response?.data?.status_code === 200 &&
+            response?.data?.status_text === 'OK'
           ) {
             router.push({
               pathname: '/login/mfa/confirm',

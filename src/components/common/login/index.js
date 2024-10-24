@@ -16,13 +16,13 @@ const Login = ({ branding, csrfToken }) => {
     API.apiPost('userLogin', payload)
       .then((response) => {
         if (
-          response?.data &&
-          response?.status === 200 &&
-          response?.statusText === 'OK'
+          response?.data?.content &&
+          response?.data?.status_code === 200 &&
+          response?.data?.status_text === 'OK'
         ) {
           router.push({
             pathname: '/login/mfa/choose',
-            query: { data: encodeData(response?.data) },
+            query: { data: encodeData(response?.data?.content) },
           });
         }
       })
