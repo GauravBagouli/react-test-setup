@@ -1,0 +1,51 @@
+.trendsWrapper {
+    margin: 2rem;
+}
+
+.insightsHeader {
+    margin-bottom: 0.25rem;
+}
+
+.plutoCard {
+    background-color: #f8f9fa;
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+
+.chartWrapper {
+    padding: 1rem;
+}
+
+.loadingWrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.statusIcon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.yellow {
+    color: #ffcc00;
+}
+
+.green {
+    color: #28a745;
+}
+
+.orange {
+    color: #fd7e14;
+}
+
+.red {
+    color: #dc3545;
+}
+
+.errorWrapper {
+    text-align: center;
+    padding: 2rem;
+}
