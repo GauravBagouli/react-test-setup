@@ -19,6 +19,11 @@ const Navbar = ({ profile, branding }) => {
     router.push(path);
   };
 
+  const handleLogout = () => {
+    localStorage.clear();
+    router.push('/login');
+  };
+
   return (
     <nav id="pluto-nav" className="navbar fixed-top navbar-expand-lg navbar-light py-md-2 py-lg-2 shadow-sm border-bottom px-md-4 px-lg-4 bg-white">
       <div className="container-fluid gap-md-8 gap-lg-8">
@@ -124,7 +129,7 @@ const Navbar = ({ profile, branding }) => {
             <li><button className="dropdown-item text-capitalize" onClick={() => handleNavigation('/account/insurance')}>Insurance</button></li>
             <li><button className="dropdown-item text-capitalize" onClick={() => handleNavigation('/account/about')}>About</button></li>
             <li><button className="dropdown-item text-capitalize" onClick={() => handleNavigation('/support')}>Support</button></li>
-            <li><button className="dropdown-item text-capitalize" onClick={() => handleNavigation('/')}>Logout</button></li>
+            <li><button className="dropdown-item text-capitalize" onClick={() => handleLogout()}>Logout</button></li>
           </ul>
         </div>
       </div>

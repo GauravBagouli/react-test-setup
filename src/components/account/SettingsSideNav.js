@@ -1,52 +1,62 @@
-import Link from 'next/link';
 import { useRouter } from 'next/router';
-import Image from 'next/image';
 import { useState } from 'react';
 
 const SettingsSideNav = ({ branding }) => {
   const [isNavOpen, setIsNavOpen] = useState(false);
   const router = useRouter();
   const { pathname } = router; // Get the current path
+
   const toggleNav = () => setIsNavOpen(!isNavOpen);
+
+  const navigate = (path) => {
+    router.push(path);
+    if (isNavOpen) toggleNav(); // Close the nav after navigation on mobile
+  };
+
   return (
     <>
       <div className="d-none d-lg-block">
         <h5 className="text-uppercase ps-4 mt-4 d-none d-lg-block d-xl-block">Settings</h5>
         <ul className="nav flex-column">
           <li className="nav-item">
-            <Link href="/account/profile" passHref legacyBehavior>
-              <a className={`nav-link text-capitalize ${pathname.includes('/account/profile') ? 'active' : 'link-secondary'}`}>
-                Profile
-              </a>  
-            </Link>
+            <button 
+              onClick={() => navigate('/account/profile')}
+              className={`nav-link text-start text-capitalize w-100 ${pathname.includes('/account/profile') ? 'active' : 'link-secondary'}`}
+            >
+              Profile
+            </button>
           </li>
           <li className="nav-item">
-            <Link href="/account/change-password" passHref legacyBehavior>
-              <a className={`nav-link text-capitalize ${pathname.includes('/account/change-password') ? 'active' : 'link-secondary'}`}>
-                Change Password
-              </a>
-            </Link>
+            <button 
+              onClick={() => navigate('/account/change-password')}
+              className={`nav-link text-start text-capitalize w-100 ${pathname.includes('/account/change-password') ? 'active' : 'link-secondary'}`}
+            >
+              Change Password
+            </button>
           </li>
           <li className="nav-item">
-            <Link href="/account/hipaa" passHref legacyBehavior>
-              <a className={`nav-link text-capitalize ${pathname.includes('/account/hipaa') ? 'active' : 'link-secondary'}`}>
-                HIPAA Authorizations
-              </a>
-            </Link>
+            <button 
+              onClick={() => navigate('/account/hipaa')}
+              className={`nav-link text-start text-capitalize w-100 ${pathname.includes('/account/hipaa') ? 'active' : 'link-secondary'}`}
+            >
+              HIPAA Authorizations
+            </button>
           </li>
           <li className="nav-item">
-            <Link href="/account/insurance" passHref legacyBehavior>
-              <a className={`nav-link text-capitalize ${pathname.includes('/account/insurance') ? 'active' : 'link-secondary'}`}>
-                Insurance
-              </a>
-            </Link>
+            <button 
+              onClick={() => navigate('/account/insurance')}
+              className={`nav-link text-start text-capitalize w-100 ${pathname.includes('/account/insurance') ? 'active' : 'link-secondary'}`}
+            >
+              Insurance
+            </button>
           </li>
           <li className="nav-item">
-            <Link href="/account/about" passHref legacyBehavior>
-              <a className={`nav-link text-capitalize ${pathname.includes('/account/about') ? 'active' : 'link-secondary'}`}>
-                About
-              </a>
-            </Link>
+            <button 
+              onClick={() => navigate('/account/about')}
+              className={`nav-link text-start text-capitalize w-100 ${pathname.includes('/account/about') ? 'active' : 'link-secondary'}`}
+            >
+              About
+            </button>
           </li>
         </ul>
       </div>
@@ -66,43 +76,48 @@ const SettingsSideNav = ({ branding }) => {
             </div>
             <div className="navbar-nav d-flex w-lg-75 justify-content-md-between justify-content-lg-between">
               <div className="nav-item">
-                <Link href="/account/profile" passHref legacyBehavior>
-                  <a className={`nav-link text-capitalize ${pathname.includes('/account/profile') ? 'active' : 'link-secondary'}`}>
-                    Profile
-                  </a>
-                </Link>
+                <button 
+                  onClick={() => navigate('/account/profile')}
+                  className={`nav-link text-start text-capitalize w-100 ${pathname.includes('/account/profile') ? 'active' : 'link-secondary'}`}
+                >
+                  Profile
+                </button>
               </div>
 
               <div className="nav-item desktop-link">
-                <Link href="/account/change-password" passHref legacyBehavior>
-                  <a className={`nav-link text-capitalize ${pathname.includes('/account/change-password') ? 'active' : 'link-secondary'}`}>
-                    Change Password
-                  </a>
-                </Link>
+                <button 
+                  onClick={() => navigate('/account/change-password')}
+                  className={`nav-link text-start text-capitalize w-100 ${pathname.includes('/account/change-password') ? 'active' : 'link-secondary'}`}
+                >
+                  Change Password
+                </button>
               </div>
 
               <div className="nav-item desktop-link">
-                <Link href="/account/hipaa" passHref legacyBehavior>
-                  <a className={`nav-link text-capitalize ${pathname.includes('/account/hipaa') ? 'active' : 'link-secondary'}`}>
-                    HIPAA Authorizations
-                  </a>
-                </Link>
+                <button 
+                  onClick={() => navigate('/account/hipaa')}
+                  className={`nav-link text-start text-capitalize w-100 ${pathname.includes('/account/hipaa') ? 'active' : 'link-secondary'}`}
+                >
+                  HIPAA Authorizations
+                </button>
               </div>
 
               <div className="nav-item">
-                <Link href="/account/insurance" passHref legacyBehavior>
-                  <a className={`nav-link text-capitalize ${pathname.includes('/account/insurance') ? 'active' : 'link-secondary'}`}>
-                    Insurance
-                  </a>
-                </Link>
+                <button 
+                  onClick={() => navigate('/account/insurance')}
+                  className={`nav-link text-start text-capitalize w-100 ${pathname.includes('/account/insurance') ? 'active' : 'link-secondary'}`}
+                >
+                  Insurance
+                </button>
               </div>
 
               <div className="nav-item">
-                <Link href="/account/about" passHref legacyBehavior>
-                  <a className={`nav-link text-capitalize ${pathname.includes('/account/about') ? 'active' : 'link-secondary'}`}>
-                    About
-                  </a>
-                </Link>
+                <button 
+                  onClick={() => navigate('/account/about')}
+                  className={`nav-link text-start text-capitalize w-100 ${pathname.includes('/account/about') ? 'active' : 'link-secondary'}`}
+                >
+                  About
+                </button>
               </div>
             </div>
           </div>
