@@ -152,8 +152,16 @@ axios.interceptors.response.use(
 export const setAuthorization = () => {
   axios.defaults.withCredentials = true;
   axios.defaults.headers.common.authorization =
-    process.browser && localStorage.getItem('access_token')
+    'Bearer' + process.browser && localStorage.getItem('access_token')
       ? localStorage.getItem('access_token')
+      : '';
+  axios.defaults.headers.common.id_authorization =
+    process.browser && localStorage.getItem('id_token')
+      ? localStorage.getItem('id_token')
+      : '';
+  axios.defaults.headers.common.refresh_authorization =
+    process.browser && localStorage.getItem('refresh_authorization')
+      ? localStorage.getItem('refresh_token')
       : '';
 };
 setAuthorization();

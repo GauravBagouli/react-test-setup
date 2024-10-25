@@ -2,8 +2,10 @@ import { setAuthorization } from './api';
 import { jwtDecode } from 'jwt-decode';
 import { Base64 } from 'js-base64';
 
-export function storeAccessToken(token) {
-  localStorage.setItem('accessToken', token);
+export function storeAccessToken(token, id_token, refresh_token) {
+  localStorage.setItem('access_token', token);
+  localStorage.setItem('id_token', id_token);
+  localStorage.setItem('refresh_token', refresh_token);
   setAuthorization();
   return true;
 }
@@ -38,17 +40,9 @@ export const decodeData = (token) => {
   }
 };
 
-export function decryptedToken(token) {
-  try {
-    return jwtDecode(token);
-  } catch (err) {
-    return false;
-  }
-}
-
 export function isAuth() {
   try {
-    const tokenChecked = localStorage.getItem('accessToken');
+    const tokenChecked = localStorage.getItem('access_token');
     if (tokenChecked) {
       return decryptedToken(tokenChecked);
     }
@@ -61,16 +55,12 @@ export function isAuth() {
 export function currentUser() {
   try {
     if (process.browser) {
-      return localStorage.getItem('accessToken');
+      return localStorage.getItem('access_token');
     }
     return false;
   } catch (error) {
     return false;
   }
-}
-
-export function setUserProfile(userData) {
-  localStorage.setItem('currentUser', JSON.stringify(userData));
 }
 
 export function getUserProfile() {
@@ -86,54 +76,6 @@ export function getUserProfile() {
     return false;
   } catch (error) {
     return error;
-  }
-}
-
-export function setCurrentUserType(adminTab) {
-  if (process.browser) {
-    localStorage.setItem('adminTab', adminTab);
-  }
-}
-
-export function setCurrentThemeType(themeType) {
-  if (process.browser) {
-    localStorage.setItem('themeType', themeType);
-  }
-}
-
-export function checkIsAdmin() {
-  try {
-    const tabChecked = localStorage.getItem('adminTab');
-    if (tabChecked === 'true') {
-      return true;
-    }
-    return false;
-  } catch (err) {
-    return false;
-  }
-}
-
-export function checkIsDark() {
-  try {
-    const themeChecked = localStorage.getItem('themeType');
-    if (themeChecked === 'true') {
-      return true;
-    }
-    return false;
-  } catch (err) {
-    return false;
-  }
-}
-
-/** For getting all localstorage items */
-export function allLocalStorageItem() {
-  try {
-    let values = [],
-      keys = Object.keys(localStorage);
-    keys.forEach((item) => values.push(localStorage.getItem(item)));
-    return JSON.parse(values);
-  } catch (error) {
-    return false;
   }
 }
 
