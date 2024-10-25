@@ -49,7 +49,7 @@ const HeartRate = () => {
                 high: acceptedRange.high + 10 || 0, // Default to 0 if undefined
             },
             data: transformedData,
-            unit: "bpm"
+            unit: "%"
         };
     }
 
@@ -63,23 +63,18 @@ const HeartRate = () => {
             title: "Helpful Links",
             type: "links",
             content: [ {
-                    title: "Mayo Clinic Heart Rate",
+                    title: "WebMD Lung Facts",
                     link: "https://www.verywellhealth.com/blood-oxygen-levels-2884527"
                 },
                 {
-                    title: "WebMD Heart Rate",
-                    link: "https://www.verywellhealth.com/blood-oxygen-levels-2884527"
-                },
-                {
-                    title: "CDC Target Heart Rate",
+                    title: "Mayo Clinic How to Measure your",
                     link: "https://www.verywellhealth.com/blood-oxygen-levels-2884527"
                 }
-                
             ]
         }
     ];
 
-    const graphData = getData("HRTRT");
+    const graphData = getData("RESRT");
 
     return (
         <>

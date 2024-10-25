@@ -45,11 +45,11 @@ const HeartRate = () => {
             description: firstHeartRateEntry?.description,
             latestResult: firstHeartRateEntry?.latestResult,
             acceptedRange: { 
-                low: acceptedRange.low - 10 || 0, // Default to 0 if undefined
-                high: acceptedRange.high + 10 || 0, // Default to 0 if undefined
+                low: 0 || 0, // Default to 0 if undefined
+                high: 20000 || 0, // Default to 0 if undefined
             },
             data: transformedData,
-            unit: "bpm"
+            unit: "lbs"
         };
     }
 
@@ -63,23 +63,18 @@ const HeartRate = () => {
             title: "Helpful Links",
             type: "links",
             content: [ {
-                    title: "Mayo Clinic Heart Rate",
+                    title: "CDC Healthy Weight",
                     link: "https://www.verywellhealth.com/blood-oxygen-levels-2884527"
                 },
                 {
-                    title: "WebMD Heart Rate",
-                    link: "https://www.verywellhealth.com/blood-oxygen-levels-2884527"
-                },
-                {
-                    title: "CDC Target Heart Rate",
+                    title: "WebMD Healthy Weight",
                     link: "https://www.verywellhealth.com/blood-oxygen-levels-2884527"
                 }
-                
             ]
         }
     ];
 
-    const graphData = getData("HRTRT");
+    const graphData = getData("WEIGHT");
 
     return (
         <>

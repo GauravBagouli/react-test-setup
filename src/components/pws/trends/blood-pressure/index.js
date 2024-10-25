@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import HealthTrends from '../healthTrends';
 const data = require('../dummyData.json');
 
-const HeartRate = () => {
+const BpComponent = () => {
 
     function getData(id) {
         const heartRateData = data.trends.vitals.filter(trend => trend.trendID === id);
@@ -45,11 +45,12 @@ const HeartRate = () => {
             description: firstHeartRateEntry?.description,
             latestResult: firstHeartRateEntry?.latestResult,
             acceptedRange: { 
-                low: acceptedRange.low - 10 || 0, // Default to 0 if undefined
-                high: acceptedRange.high + 10 || 0, // Default to 0 if undefined
+                low: 1,
+                high: 100
+                // low: acceptedRange.low || 0, // Default to 0 if undefined
+                // high: acceptedRange.high + 10 || 0, // Default to 0 if undefined
             },
             data: transformedData,
-            unit: "bpm"
         };
     }
 
@@ -63,23 +64,18 @@ const HeartRate = () => {
             title: "Helpful Links",
             type: "links",
             content: [ {
-                    title: "Mayo Clinic Heart Rate",
+                    title: "Blood Oxygen Levels",
                     link: "https://www.verywellhealth.com/blood-oxygen-levels-2884527"
                 },
                 {
-                    title: "WebMD Heart Rate",
-                    link: "https://www.verywellhealth.com/blood-oxygen-levels-2884527"
-                },
-                {
-                    title: "CDC Target Heart Rate",
+                    title: "Blood Oxygen Levels",
                     link: "https://www.verywellhealth.com/blood-oxygen-levels-2884527"
                 }
-                
             ]
         }
     ];
 
-    const graphData = getData("HRTRT");
+    const graphData = getData("BPRES");
 
     return (
         <>
@@ -88,4 +84,4 @@ const HeartRate = () => {
     );
 };
 
-export default HeartRate;
+export default BpComponent;

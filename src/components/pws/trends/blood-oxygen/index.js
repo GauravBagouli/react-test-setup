@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import HealthTrends from '../healthTrends';
 const data = require('../dummyData.json');
 
-const HeartRate = () => {
+const BOXComponent = () => {
 
     function getData(id) {
         const heartRateData = data.trends.vitals.filter(trend => trend.trendID === id);
@@ -45,41 +45,37 @@ const HeartRate = () => {
             description: firstHeartRateEntry?.description,
             latestResult: firstHeartRateEntry?.latestResult,
             acceptedRange: { 
-                low: acceptedRange.low - 10 || 0, // Default to 0 if undefined
-                high: acceptedRange.high + 10 || 0, // Default to 0 if undefined
+                low: 1,
+                high: 100
+                // low: acceptedRange.low || 0, // Default to 0 if undefined
+                // high: acceptedRange.high + 10 || 0, // Default to 0 if undefined
             },
             data: transformedData,
-            unit: "bpm"
         };
     }
 
 
     const cardsData = [
         {
-            title: "What is Heart Rate?",
-            content: "A normal resting heart rate for adults ranges from 60 to 100 beats per minute..."
+            title: "What is Blood Oxygen Levels?",
+            content: "Your blood oxygen level is measured as a percentage—95 to 100 percent is considered normal. “If oxygen levels are below 88 percent, that is a cause for concern,” said Christian Bime, MD, a critical care medicine specialist with a focus in pulmonology at Banner - University Medical Center Tucson"
         },
         {
             title: "Helpful Links",
             type: "links",
             content: [ {
-                    title: "Mayo Clinic Heart Rate",
+                    title: "Banner Health Blood Oxygen Level",
                     link: "https://www.verywellhealth.com/blood-oxygen-levels-2884527"
                 },
                 {
-                    title: "WebMD Heart Rate",
-                    link: "https://www.verywellhealth.com/blood-oxygen-levels-2884527"
-                },
-                {
-                    title: "CDC Target Heart Rate",
+                    title: "WebMD Increase Blood Oxygen",
                     link: "https://www.verywellhealth.com/blood-oxygen-levels-2884527"
                 }
-                
             ]
         }
     ];
 
-    const graphData = getData("HRTRT");
+    const graphData = getData("BLOXY");
 
     return (
         <>
@@ -88,4 +84,4 @@ const HeartRate = () => {
     );
 };
 
-export default HeartRate;
+export default BOXComponent;
